@@ -21,7 +21,7 @@
     var filas = [
       [{ v: "Registro de asistencia", s: "titulo" }],
       [{ v: d.curso + " (" + d.codigoCurso + ")", s: "negrita" }],
-      [{ v: "Sesión " + d.sesion.n + ", " + d.sesion.fechaLarga + ". Docente: " + d.docente }],
+      [{ v: (d.sesion.titulo || "Sesión " + d.sesion.n) + ", " + d.sesion.fechaLarga + ". Docente: " + d.docente }],
       [{ v: d.sesion.tema, s: "sutil" }],
       [{ v: "N.º", s: "encabezado" }, { v: "Estudiante", s: "encabezado" }, { v: "Asistencia", s: "encabezado" }, { v: "Hora", s: "encabezado" }, { v: "Registro", s: "encabezado" }]
     ];
@@ -55,12 +55,12 @@
     }
     filas.push([]);
     filas.push([{ v: "Generado por el sitio del curso el " + d.generado + ". Registro de apoyo: el registro oficial de asistencia es el de la Universidad UTE.", s: "sutil" }]);
-    wb.hoja("Sesión " + d.sesion.n, { anchos: [7, 46, 13, 9, 11], fijarFilas: 5, filas: filas, combinar: ["A4:E4", "A" + filas.length + ":E" + filas.length] });
+    wb.hoja(d.sesion.hoja || "Sesión " + d.sesion.n, { anchos: [7, 46, 13, 9, 11], fijarFilas: 5, filas: filas, combinar: ["A4:E4", "A" + filas.length + ":E" + filas.length] });
 
     // ---------- Hoja 2: el semestre ----------
     var ses = d.sesiones;
     var cab = [{ v: "N.º", s: "encabezado" }, { v: "Estudiante", s: "encabezado" }]
-      .concat(ses.map(function (s) { return { v: "S" + s.n + " " + fechaCorta(s.fecha), s: "encabezado" }; }))
+      .concat(ses.map(function (s) { return { v: (s.corta || "S" + s.n) + " " + fechaCorta(s.fecha), s: "encabezado" }; }))
       .concat([{ v: "Asistencias", s: "encabezado" }, { v: "Sesiones", s: "encabezado" }, { v: "Porcentaje", s: "encabezado" }]);
     var f2 = [cab];
     var cIni = X.columna(2), cFin = X.columna(1 + ses.length);

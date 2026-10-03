@@ -991,3 +991,23 @@ td.num, th.num { text-align: right; }
 .panel-correo h2 { margin-top: 0; color: var(--azul); font-size: var(--t1); }
 .panel-correo__pasos { margin: 0.5rem 0; padding-left: 1.25rem; }
 .panel-correo__pasos li { margin-bottom: 0.25rem; }
+.boton-whatsapp img { width: 1.75rem; height: 1.75rem; border-radius: 50%; }
+.ultimo { position: relative; padding-right: 4.5rem; }
+.ultimo__icono { position: absolute; right: 0.875rem; top: 0.875rem; width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.75rem; font-weight: 700; color: #fff; margin: 0; }
+.ultimo__icono:empty { display: none; }
+.ultimo--ok .ultimo__icono { background: var(--verde); box-shadow: 0 0 0 5px rgba(59, 152, 74, 0.25); }
+.ultimo--error .ultimo__icono { background: var(--rojo); box-shadow: 0 0 0 5px rgba(179, 38, 30, 0.2); }
+.ultimo--rep .ultimo__icono { background: var(--ambar); box-shadow: 0 0 0 5px rgba(168, 100, 0, 0.2); }
+@media (prefers-reduced-motion: no-preference) { .ultimo__icono { animation: aparece 0.35s ease; } @keyframes aparece { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } } }
+.panel-correo p { margin: 0 0 0.5rem; }
+.escaner-lateral .ultimo { margin-bottom: 0.75rem; }
+@media (min-width: 64rem) { body.con-escaner .escaner__visor { max-height: 34vh; } }
+.visor__resultado { position: absolute; inset: 0; display: grid; place-items: center; font-size: 6rem; font-weight: 700; color: #fff; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
+.visor__resultado--ok, .visor__resultado--error, .visor__resultado--rep { opacity: 1; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5); }
+.visor__resultado--ok { background: rgba(59, 152, 74, 0.55); }
+.visor__resultado--error { background: rgba(179, 38, 30, 0.55); }
+.visor__resultado--rep { background: rgba(168, 100, 0, 0.5); }
+.reg__acciones { min-width: 0; max-width: 100%; }
+.reg__acciones > .boton { max-width: 100%; white-space: normal; text-align: center; }
+.boton--grande { padding-inline: 1rem; }
+@media (max-width: 47.99rem) { .reg__acciones { flex: 1 1 100%; } .reg__acciones > .boton { flex: 1 1 100%; } }

@@ -153,10 +153,11 @@
     var total = (A.lista || []).length;
     $("asis-cuenta").textContent = String(dentro);
     $("asis-de").textContent = total ? " de " + total + " presentes" : (dentro === 1 ? " presente" : " presentes");
-    var pend = r.length && !(sx.enviado && (!sx.modificado || sx.modificado <= sx.enviado));
+    var ultEnv = sx ? [sx.enviado, sx.textoEnviado].filter(Boolean).sort().pop() : null;
+    var pend = r.length && !(ultEnv && (!sx.modificado || sx.modificado <= ultEnv));
     $("asis-pendiente").hidden = !pend;
-    if (pend) $("asis-pendiente").textContent = "El Excel de esta sesión aún no se envió.";
-    $("asis-envio").textContent = sx && sx.enviado && !pend ? "Excel enviado a las " + hora(sx.enviado) + "." : (!total ? "Cargue la lista del curso en el registro (una sola vez)." : "");
+    if (pend) $("asis-pendiente").textContent = "La asistencia de esta sesión aún no se envió.";
+    $("asis-envio").textContent = ultEnv && !pend ? "Asistencia enviada a las " + hora(ultEnv) + "." : (!total ? "Cargue la lista del curso en el registro (una sola vez)." : "");
     actualizarEnlaceRegistro();
   }
 
@@ -222,7 +223,14 @@
   });
 
   // ---------- asistencia: se registra en registro.html (pestaña aparte) ----------
-  function actualizarEnlaceRegistro() { $("abrir-asistencia").href = "registro.html?sesion=" + sel.n + (new URLSearchParams(location.search).get("hoy") ? "&hoy=" + hoy : ""); }
+  var BASE_REGISTRO = "registro.html";
+  // El registro abre siempre en la fecha de hoy; solo se indica la sesión cuando la de hoy es la que se ve
+  function actualizarEnlaceRegistro() {
+    var q = [];
+    if (sel.fecha === hoy) q.push("sesion=" + sel.n);
+    if (new URLSearchParams(location.search).get("hoy")) q.push("hoy=" + hoy);
+    $("abrir-asistencia").href = BASE_REGISTRO + (q.length ? (BASE_REGISTRO.indexOf("#") >= 0 ? "&" : "?") + q.join("&") : "");
+  }
   window.addEventListener("storage", function (e) { if (e.key === CLAVE) { A = cargarAsis(); if (sel) pintarResumenAsis(); } });
   window.addEventListener("focus", function () { A = cargarAsis(); if (sel) pintarResumenAsis(); });
 

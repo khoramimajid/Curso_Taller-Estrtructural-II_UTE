@@ -39,29 +39,19 @@
         <p class="reg__envio" id="estado-envio" aria-live="polite"></p>
       </div>
       <div class="reg__acciones">
-        <button class="boton boton--primario boton--grande" type="button" id="enviar">Enviar Excel a mi correo</button>
+        <button class="boton boton--primario boton--grande" type="button" id="enviar-texto">Enviar la lista a mi correo (texto)</button>
+        <button class="boton boton--verde boton--grande boton-whatsapp" type="button" id="enviar-whatsapp"><img src="whatsapp.png" alt="" width="28" height="28"> Enviar Excel por WhatsApp</button>
         <button class="boton boton--secundario" type="button" id="escanear" aria-expanded="false" aria-controls="panel-escaner">Escanear QR</button>
         <button class="boton boton--secundario" type="button" id="todos">Marcar todos presentes</button>
         <button class="boton boton--texto" type="button" id="descargar">Solo descargar el Excel</button>
       </div>
     </section>
 
-    <section class="panel-correo" id="panel-correo" hidden aria-labelledby="panel-correo-titulo" tabindex="-1">
-      <h2 id="panel-correo-titulo">Excel listo: envíelo a su correo</h2>
-      <p id="panel-correo-archivo"></p>
-      <ol class="panel-correo__pasos">
-        <li>Pulse <strong>Abrir Outlook</strong>: el correo se abre con el asunto y <strong>la lista de presentes y faltas ya escrita</strong>.</li>
-        <li>Pulse el <strong>clip (Adjuntar)</strong> y elija el archivo Excel de su carpeta <strong>Descargas</strong>.</li>
-        <li>Envíelo.</li>
-      </ol>
-      <p class="nota">Por seguridad, ningún navegador permite adjuntar un archivo a un correo de forma automática. Si su equipo ofrece «Compartir», use ese botón: ahí el Excel sí va adjunto.</p>
-      <div class="reg__fila-botones">
-        <a class="boton boton--primario" id="panel-outlook" target="_blank" rel="noopener">Abrir Outlook (correo UTE)</a>
-        <button class="boton boton--verde" type="button" id="panel-compartir" hidden>Compartir el Excel</button>
-        <a class="boton boton--secundario" id="panel-mailto" target="_blank" rel="noopener">Otra app de correo</a>
-        <button class="boton boton--texto" type="button" id="panel-descargar">Descargar el Excel otra vez</button>
-        <button class="boton boton--texto" type="button" id="panel-cerrar">Cerrar</button>
-      </div>
+    <section class="panel-correo" id="panel-envio" hidden aria-labelledby="panel-titulo" tabindex="-1">
+      <h2 id="panel-titulo"></h2>
+      <div id="panel-cuerpo"></div>
+      <div class="reg__fila-botones" id="panel-botones"></div>
+      <button class="boton boton--texto" type="button" id="panel-cerrar">Cerrar</button>
     </section>
 
     <section class="aviso aviso--importante" id="sin-lista" hidden aria-labelledby="sin-lista-titulo">
@@ -78,9 +68,17 @@
     </section>
 
     <section class="escaner-lateral" id="panel-escaner" hidden aria-label="Escáner de códigos QR">
+      <div class="ultimo" id="ultimo" aria-live="assertive" aria-atomic="true">
+        <p class="ultimo__icono" id="ultimo-icono" aria-hidden="true"></p>
+        <p class="ultimo__etiqueta">Último escaneo</p>
+        <p class="ultimo__nombre" id="ultimo-nombre">Esperando el primer código…</p>
+        <p class="ultimo__detalle" id="ultimo-detalle"></p>
+        <div class="ultimo__opciones" id="ultimo-opciones"></div>
+      </div>
       <div class="escaner__visor" id="visor">
         <video id="video" playsinline muted></video>
         <div class="escaner__marco" aria-hidden="true"></div>
+        <div class="visor__resultado" id="visor-resultado" aria-hidden="true"></div>
         <p class="escaner__estado" id="cam-estado">Cámara apagada</p>
       </div>
       <div class="escaner__controles">
@@ -90,13 +88,7 @@
           <input type="file" id="foto-qr" accept="image/*" capture="environment" class="solo-lector">
         </label>
       </div>
-      <p class="nota" id="foto-qr-ayuda">Si la cámara en vivo no se enciende (por ejemplo, dentro del visor de Claude), use «Tomar foto del QR»: en el celular se abre la cámara; en la laptop puede elegir una foto o captura del código.</p>
-      <div class="ultimo" id="ultimo" aria-live="assertive" aria-atomic="true">
-        <p class="ultimo__etiqueta">Último escaneo</p>
-        <p class="ultimo__nombre" id="ultimo-nombre">Esperando el primer código…</p>
-        <p class="ultimo__detalle" id="ultimo-detalle"></p>
-        <div class="ultimo__opciones" id="ultimo-opciones"></div>
-      </div>
+      <p class="nota" id="foto-qr-ayuda">La cámara en vivo lee los códigos sola. Solo funciona abriendo el registro desde su enlace de GitHub Pages (la dirección que empieza con https:// y termina en /registro.html). Si la abre como archivo guardado o dentro de Claude, el navegador bloquea la cámara: use «Tomar foto del QR».</p>
     </section>
 
     <section class="reg__lista" aria-labelledby="lista-titulo">
