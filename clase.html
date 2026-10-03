@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es-EC">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Modo clase: Taller estructural II (UTE)</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23A8391F' stroke-width='3'/%3E%3Cpath d='M16 9v8l5 3' stroke='%23A8391F' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body class="pagina-clase">
+  <a class="saltar" href="#sesion">Saltar a la sesión</a>
+
+  <header class="barra">
+    <img class="barra__logo" src="logo-ute.png" alt="Universidad UTE" width="49" height="40">
+    <div class="barra__curso">
+      <p class="barra__titulo">Taller estructural II</p>
+      <p class="barra__sub">Modo clase</p>
+    </div>
+    <nav class="barra__nav" aria-label="Elegir sesión">
+      <button class="boton boton--icono" type="button" id="anterior" aria-label="Sesión anterior" title="Sesión anterior (flecha izquierda)">‹</button>
+      <label class="solo-lector" for="elegir">Sesión</label>
+      <select class="campo campo--select" id="elegir"></select>
+      <button class="boton boton--icono" type="button" id="siguiente" aria-label="Sesión siguiente" title="Sesión siguiente (flecha derecha)">›</button>
+    </nav>
+    <div class="barra__acciones">
+      <p class="reloj" id="reloj" aria-label="Hora actual">--:--</p>
+      <button class="boton boton--secundario" type="button" id="completa">Pantalla completa</button>
+    </div>
+  </header>
+
+  <div id="error-datos" class="aviso aviso--error barra-aviso" hidden></div>
+  <p class="aviso aviso--suave barra-aviso" id="aviso-dia" hidden></p>
+
+  <main class="clase" id="contenido">
+    <section class="clase__sesion" id="sesion" aria-live="polite">
+      <p class="rotulo__cargando">Cargando la sesión…</p>
+    </section>
+
+    <aside class="clase__lateral" aria-label="Herramientas de la clase">
+      <section class="panel" aria-labelledby="asis-titulo">
+        <h2 id="asis-titulo" class="panel__titulo">Asistencia</h2>
+        <p class="panel__cifra"><span id="asis-cuenta">0</span><span class="panel__unidad" id="asis-de"> presentes</span></p>
+        <p class="aviso aviso--importante aviso--mini" id="asis-pendiente" hidden></p>
+        <p class="nota" id="asis-envio"></p>
+        <a class="boton boton--primario boton--ancho" id="abrir-asistencia" href="registro.html" target="_blank" rel="noopener">Registrar asistencia <span class="solo-lector">(se abre en una pestaña nueva)</span><span aria-hidden="true">↗</span></a>
+        <p class="nota">Enlace para los estudiantes: <a id="enlace-alumnos" href="asistencia.html">asistencia.html</a> <button class="boton boton--texto boton--mini" type="button" id="copiar-enlace">Copiar enlace</button></p>
+      </section>
+
+      <section class="panel" aria-labelledby="temp-titulo">
+        <h2 id="temp-titulo" class="panel__titulo">Temporizador</h2>
+        <p class="temporizador" id="temp-pantalla" role="timer" aria-live="off">10:00</p>
+        <p class="solo-lector" id="temp-aviso" aria-live="assertive"></p>
+        <div class="temp-presets" role="group" aria-label="Duración">
+          <button class="chip" type="button" data-min="5">5 min</button>
+          <button class="chip" type="button" data-min="10">10</button>
+          <button class="chip" type="button" data-min="15">15</button>
+          <button class="chip" type="button" data-min="20">20</button>
+          <button class="chip" type="button" data-min="30">30</button>
+          <button class="chip" type="button" data-min="45">45</button>
+        </div>
+        <div class="temp-controles">
+          <button class="boton boton--primario" type="button" id="temp-iniciar">Iniciar</button>
+          <button class="boton boton--secundario" type="button" id="temp-mas">+1 min</button>
+          <button class="boton boton--texto" type="button" id="temp-reiniciar">Reiniciar</button>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="avance-titulo">
+        <h2 id="avance-titulo" class="panel__titulo">Semestre</h2>
+        <div id="avance"></div>
+      </section>
+    </aside>
+  </main>
+
+
+  <script src="qr-comun.js"></script>
+  <script src="clase.js"></script>
+</body>
+</html>
