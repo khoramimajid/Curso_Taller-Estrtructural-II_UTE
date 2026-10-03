@@ -101,6 +101,18 @@ Probado en Chromium, con la lista del curso (22 estudiantes, cargada solo en el 
 | Tomar foto del QR | Una foto del QR generado por el estudiante lo marca presente; una foto sin QR muestra un aviso claro |
 | Lista en la página privada del docente | Ya cargada con los 22 estudiantes; no aparece en la página de estudiantes ni en el sitio de GitHub |
 
+## Versión 5.2
+
+| Prueba | Resultado |
+|---|---|
+| Fecha de hoy | Un sábado abre «Hoy, sábado 3 de octubre de 2026 (sin clase programada)»; un lunes de clase abre «Sesión 1 (hoy)»; desde el modo clase también |
+| Lista por correo (texto) | Abre Outlook (laptop) o la app de correo (celular) con presentes y faltas en el mensaje |
+| Excel por WhatsApp | Con «Compartir»: el .xlsx va adjunto. Sin «Compartir»: se descarga y se abre `wa.me` con un texto listo |
+| Escáner en vivo | Coincide: ✓ verde y tono de dos notas (1047 y 1568 Hz). No coincide: ✗ roja, zumbido grave (200 y 150 Hz) y «no coincide con ningún nombre de la lista del curso», sin registrar. Advertencias: «!» ámbar |
+| Sonido | Se activa al pulsar «Escanear QR» (los navegadores bloquean el sonido hasta el primer toque) |
+| Resultado visible | Encima de la cámara y grande sobre la imagen, en laptop y celular |
+| Archivo independiente | Cambia entre modo clase y registro sin recargar; al pulsar «Escanear QR» explica que en archivos guardados el navegador bloquea la cámara |
+
 ## Pruebas manuales tras publicar
 
 - [ ] Abrir la dirección pública desde un teléfono con datos móviles (no con el wifi de la UTE) y hacer una captura.

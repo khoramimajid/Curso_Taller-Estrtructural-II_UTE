@@ -2,12 +2,23 @@
 <html lang="es-EC">
 <head>
   <meta charset="utf-8">
+<script>
+/* Si algún archivo no carga (versión vieja guardada o archivo faltante), avisar en vez de quedarse en blanco */
+window.addEventListener("error", function (e) {
+  if (document.getElementById("aviso-carga")) return;
+  var d = document.createElement("div"); d.id = "aviso-carga"; d.setAttribute("role", "alert");
+  d.style.cssText = "position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#b3261e;color:#fff;padding:12px 14px;border-radius:12px;font:600 15px/1.4 Arial,sans-serif";
+  d.textContent = "La página no cargó completa. Recárguela; si sigue igual, vuelva a subir a GitHub todos los archivos del sitio a la vez (" + ((e.target && (e.target.src || e.target.href)) || e.message || "error") + ").";
+  (document.body || document.documentElement).appendChild(d);
+}, true);
+</script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Taller estructural II: Estructuras metálicas (UTE, 2026-II)</title>
   <meta name="description" content="Cronograma, lecturas y contacto del curso Taller estructural II: Estructuras metálicas (PROF00820), Universidad UTE, período 2026-II.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23A8391F' stroke-width='3'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-size='15' font-weight='700' text-anchor='middle' fill='%23A8391F'%3EII%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="estilo.css">
-  <link rel="stylesheet" href="fotos.css">
+  <link rel="stylesheet" href="estilo.css?v=5.3">
+  <link rel="stylesheet" href="fotos.css?v=5.3">
 </head>
 <body class="pagina-inicio">
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -182,7 +193,7 @@
       </div>
     </div>
   </dialog>
-  <script src="guardar.js"></script>
-  <script src="app.js" defer></script>
+  <script src="guardar.js?v=5.3"></script>
+  <script src="app.js?v=5.3" defer></script>
 </body>
 </html>

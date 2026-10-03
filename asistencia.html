@@ -2,13 +2,24 @@
 <html lang="es-EC">
 <head>
   <meta charset="utf-8">
+<script>
+/* Si algún archivo no carga (versión vieja guardada o archivo faltante), avisar en vez de quedarse en blanco */
+window.addEventListener("error", function (e) {
+  if (document.getElementById("aviso-carga")) return;
+  var d = document.createElement("div"); d.id = "aviso-carga"; d.setAttribute("role", "alert");
+  d.style.cssText = "position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#b3261e;color:#fff;padding:12px 14px;border-radius:12px;font:600 15px/1.4 Arial,sans-serif";
+  d.textContent = "La página no cargó completa. Recárguela; si sigue igual, vuelva a subir a GitHub todos los archivos del sitio a la vez (" + ((e.target && (e.target.src || e.target.href)) || e.message || "error") + ").";
+  (document.body || document.documentElement).appendChild(d);
+}, true);
+</script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Mi código de asistencia: Taller estructural II (UTE)</title>
   <meta name="description" content="Código QR personal de asistencia del curso Taller estructural II: Estructuras metálicas.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#1d2830">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='4' fill='none' stroke='%23A8391F' stroke-width='3'/%3E%3Crect x='9' y='9' width='6' height='6' fill='%23A8391F'/%3E%3Crect x='17' y='17' width='6' height='6' fill='%23A8391F'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="estilo.css">
+  <link rel="stylesheet" href="estilo.css?v=5.3">
 </head>
 <body class="pagina-qr">
   <header class="cabecera cabecera--compacta">
@@ -64,9 +75,9 @@
     <p>El registro oficial de asistencia es el de la Universidad UTE.</p>
   </footer>
 
-  <script src="qrcode-generator-1.4.4.js"></script>
-  <script src="guardar.js"></script>
-  <script src="qr-comun.js"></script>
-  <script src="asistencia.js"></script>
+  <script src="qrcode-generator-1.4.4.js?v=5.3"></script>
+  <script src="guardar.js?v=5.3"></script>
+  <script src="qr-comun.js?v=5.3"></script>
+  <script src="asistencia.js?v=5.3"></script>
 </body>
 </html>
