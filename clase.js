@@ -206,6 +206,7 @@
   $("siguiente").addEventListener("click", function () { mover(1); });
   $("elegir").addEventListener("change", function () { sel = sesionPorN(+$("elegir").value); pintarSesion(); });
   document.addEventListener("keydown", function (e) {
+    var vc = document.getElementById("vista-clase"); if (vc && vc.hidden) return; // en el archivo único, solo si el modo clase está a la vista
     var t = e.target.tagName;
     if (t === "INPUT" || t === "SELECT" || t === "TEXTAREA" || e.altKey || e.ctrlKey || e.metaKey) return;
     if (e.key === "ArrowLeft") mover(-1); else if (e.key === "ArrowRight") mover(1);

@@ -987,3 +987,7 @@ td.num, th.num { text-align: right; }
 .alumnos__cabecera .fila--2 { display: none; }
 @media (min-width: 48rem) { .alumnos__cabecera { grid-template-columns: repeat(2, minmax(0, 1fr)); } .alumnos__cabecera .fila--2 { display: grid; } }
 @media (max-width: 30rem) { .alumnos__cabecera { display: none; } }
+.panel-correo { background: var(--superficie); border: 2px solid var(--azul); border-radius: 16px; padding: 1rem 1.25rem; box-shadow: 0 0 0 4px rgba(43, 99, 162, 0.12), var(--sombra); }
+.panel-correo h2 { margin-top: 0; color: var(--azul); font-size: var(--t1); }
+.panel-correo__pasos { margin: 0.5rem 0; padding-left: 1.25rem; }
+.panel-correo__pasos li { margin-bottom: 0.25rem; }

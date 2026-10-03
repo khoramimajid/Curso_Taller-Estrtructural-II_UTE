@@ -46,6 +46,24 @@
       </div>
     </section>
 
+    <section class="panel-correo" id="panel-correo" hidden aria-labelledby="panel-correo-titulo" tabindex="-1">
+      <h2 id="panel-correo-titulo">Excel listo: envíelo a su correo</h2>
+      <p id="panel-correo-archivo"></p>
+      <ol class="panel-correo__pasos">
+        <li>Pulse <strong>Abrir Outlook</strong>: el correo se abre con el asunto y <strong>la lista de presentes y faltas ya escrita</strong>.</li>
+        <li>Pulse el <strong>clip (Adjuntar)</strong> y elija el archivo Excel de su carpeta <strong>Descargas</strong>.</li>
+        <li>Envíelo.</li>
+      </ol>
+      <p class="nota">Por seguridad, ningún navegador permite adjuntar un archivo a un correo de forma automática. Si su equipo ofrece «Compartir», use ese botón: ahí el Excel sí va adjunto.</p>
+      <div class="reg__fila-botones">
+        <a class="boton boton--primario" id="panel-outlook" target="_blank" rel="noopener">Abrir Outlook (correo UTE)</a>
+        <button class="boton boton--verde" type="button" id="panel-compartir" hidden>Compartir el Excel</button>
+        <a class="boton boton--secundario" id="panel-mailto" target="_blank" rel="noopener">Otra app de correo</a>
+        <button class="boton boton--texto" type="button" id="panel-descargar">Descargar el Excel otra vez</button>
+        <button class="boton boton--texto" type="button" id="panel-cerrar">Cerrar</button>
+      </div>
+    </section>
+
     <section class="aviso aviso--importante" id="sin-lista" hidden aria-labelledby="sin-lista-titulo">
       <h2 id="sin-lista-titulo">Cargue la lista del curso</h2>
       <p>Hágalo una sola vez. La lista se guarda <strong>solo en este navegador</strong>; no se sube a internet.</p>

@@ -390,29 +390,50 @@
     if (!A.lista.length) { alert("Primero cargue la lista del curso."); return; }
     descargarBlob(libroSesion().blob(), nombreArchivo()).then(function (ok) { if (ok) marcarEnviado(); });
   });
+  function cuerpoCorreo(nombre) {
+    var pres = [], falt = [];
+    A.lista.forEach(function (e) {
+      var r = regDe(sel.n, e), pn = partesNombre(e.nombre), t = e.numero + ". " + pn.apellidos + " " + pn.nombres;
+      if (r) pres.push(t + " (" + hora(r.hora) + (r.modo === "qr" ? ", QR" : "") + ")"); else falt.push(t);
+    });
+    var fu = fueraDeLista(sel.n).map(function (x) { return "- " + x.nombre + " (" + hora(x.hora) + ")"; });
+    return [resumenTexto(), "", "PRESENTES (" + pres.length + "):"].concat(pres, ["", "FALTAS (" + falt.length + "):"], falt.length ? falt : ["(ninguna)"],
+      fu.length ? ["", "NO ESTÁN EN LA LISTA (" + fu.length + "):"].concat(fu) : [],
+      ["", "Archivo Excel: " + nombre + " (adjúntelo desde la carpeta Descargas).", "", "Generado por el registro de asistencia del curso " + D.curso.codigo + "."]).join("\n");
+  }
+  function compartirArchivo(archivo, asunto) {
+    return navigator.share({ files: [archivo], title: asunto, text: resumenTexto() });
+  }
+  function puedeCompartir(archivo) {
+    try { return !!(archivo && navigator.canShare && navigator.canShare({ files: [archivo] })); } catch (e) { return false; }
+  }
+  function mostrarPanelCorreo(blob, nombre, archivo) {
+    var correo = A.correo || D.curso.correo, asunto = "Asistencia " + D.curso.codigo + ", sesión " + sel.n + " (" + sel.fecha + ")", cuerpo = cuerpoCorreo(nombre);
+    $("panel-correo-archivo").innerHTML = "";
+    $("panel-correo-archivo").appendChild(h("span", null, [h("strong", { text: "Se descargó: " }), nombre + ". " + resumenTexto()]));
+    $("panel-outlook").href = "https://outlook.office.com/mail/deeplink/compose?to=" + encodeURIComponent(correo) + "&subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo);
+    $("panel-mailto").href = "mailto:" + correo.replace(/[^A-Za-z0-9@._+-]/g, "") + "?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo);
+    $("panel-compartir").hidden = !puedeCompartir(archivo);
+    $("panel-compartir").onclick = function () { compartirArchivo(archivo, asunto).then(marcarEnviado).catch(function () {}); };
+    $("panel-descargar").onclick = function () { descargarBlob(blob, nombre); };
+    $("panel-correo").hidden = false; $("panel-correo").focus(); $("panel-correo").scrollIntoView({ block: "start" });
+  }
+  $("panel-cerrar").addEventListener("click", function () { $("panel-correo").hidden = true; $("enviar").focus(); });
+
   $("enviar").addEventListener("click", function () {
     if (!A.lista.length) { alert("Primero cargue la lista del curso."); return; }
-    var nombre = nombreArchivo(), blob = libroSesion().blob();
-    var correo = A.correo || D.curso.correo;
-    var asunto = "Asistencia PROF00820, sesión " + sel.n + " (" + sel.fecha + ")";
-    var archivo = null;
+    var nombre = nombreArchivo(), blob = libroSesion().blob(), archivo = null;
+    var asunto = "Asistencia " + D.curso.codigo + ", sesión " + sel.n + " (" + sel.fecha + ")";
     try { archivo = new File([blob], nombre, { type: blob.type }); } catch (e) {}
-    if (archivo && navigator.canShare && navigator.canShare({ files: [archivo] })) {
-      navigator.share({ files: [archivo], title: asunto, text: resumenTexto() + " Enviar a: " + correo })
-        .then(marcarEnviado)
-        .catch(function (e) { if (e && e.name !== "AbortError") { respaldoCorreo(blob, nombre, correo, asunto); } });
+    if (puedeCompartir(archivo)) {
+      compartirArchivo(archivo, asunto).then(marcarEnviado).catch(function (e) {
+        if (e && e.name === "AbortError") return;
+        descargarBlob(blob, nombre).then(function (ok) { if (ok) { marcarEnviado(); mostrarPanelCorreo(blob, nombre, archivo); } });
+      });
       return;
     }
-    respaldoCorreo(blob, nombre, correo, asunto);
+    descargarBlob(blob, nombre).then(function (ok) { if (ok) { marcarEnviado(); mostrarPanelCorreo(blob, nombre, archivo); } });
   });
-  function respaldoCorreo(blob, nombre, correo, asunto) {
-    descargarBlob(blob, nombre).then(function (ok) {
-    if (!ok) return;
-    marcarEnviado();
-    var cuerpo = resumenTexto() + "\n\nAdjunte el archivo que se acaba de descargar: " + nombre + "\n(Está en su carpeta de Descargas.)";
-    setTimeout(function () { (window.__abrirCorreo || function (u) { location.href = u; })("mailto:" + correo.replace(/[^A-Za-z0-9@._+-]/g, "") + "?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo)); }, 400);
-    });
-  }
   $("exp-semestre").addEventListener("click", function () {
     if (!A.lista.length) { alert("Primero cargue la lista del curso."); return; }
     descargarBlob(libroSesion().blob(), "Asistencia_PROF00820_semestre_" + hoy + ".xlsx");
@@ -447,6 +468,15 @@
     if (!n) { alert("Esta sesión no tiene registros."); return; }
     if (!confirm("¿Borrar los " + n + " registros de la sesión " + sel.n + "? No se puede deshacer (salvo que tenga un respaldo).")) return;
     delete A.sesiones[String(sel.n)]; guardar(true); pintar();
+  });
+
+  // ---------- sesión pedida por el modo clase en el archivo único (sin tocar la dirección) ----------
+  window.addEventListener("te2-ir-sesion", function (ev) { var n = ev.detail; if (D && sesionPorN(n)) { sel = sesionPorN(n); pintar(); } });
+
+  // ---------- sesión pedida en la dirección (sin recargar) ----------
+  window.addEventListener("hashchange", function () {
+    var m = location.hash.match(/[&?]sesion=(\d+)/);
+    if (m && D && sesionPorN(+m[1])) { sel = sesionPorN(+m[1]); pintar(); }
   });
 
   // ---------- navegación ----------
