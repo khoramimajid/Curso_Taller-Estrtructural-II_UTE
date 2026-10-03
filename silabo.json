@@ -1,0 +1,994 @@
+{
+  "version": "5.0.0",
+  "actualizado": "2026-10-02",
+  "fuente": "V3-2026_2_SILABO_TALLER_ESTRUCTURAL_II_ESTRUCTURAS_METALICAS__obsv2.docx (versión 3, aprobada según el docente). Fechas: sílabo versión 1.0.4 (lunes y miércoles), confirmadas por el docente el 01/10/2026.",
+  "zona_horaria": "America/Guayaquil",
+  "curso": {
+    "nombre": "Taller estructural II: Estructuras metálicas",
+    "codigo": "PROF00820",
+    "facultad": "Arquitectura y Urbanismo",
+    "carrera": "Arquitectura",
+    "sede": "Quito",
+    "nivel": "6to",
+    "periodo": "2026 II-octubre 2026 – febrero 2027",
+    "prerrequisito": "Taller estructural I: Hormigón armado",
+    "docente": "Majid Khorami",
+    "correo": "majid.khorami@ute.edu.ec",
+    "aula_virtual": "Aula Virtual (Moodle)",
+    "objetivo": "Predimensionar y documentar los elementos de una estructura metálica, aplicando la normativa vigente de forma manual y mediante herramientas computacionales, para proponer sistemas estructurales en acero coherentes con el proyecto arquitectónico y comunicarlos a través de planos estructurales construibles.",
+    "correquisito": "Ninguno",
+    "descripcion": "La asignatura tiene como propósito que el estudiante de Arquitectura comprenda el comportamiento del acero estructural y lo aplique al diseño de edificaciones en estructura metálica, desde la concepción del sistema hasta su documentación en planos. Los contenidos fundamentales abarcan el material y los perfiles disponibles en Ecuador, los sistemas estructurales metálicos, las conexiones, los procesos de fabricación y montaje, el predimensionamiento de losas, vigas, columnas y placas base según la normativa vigente, y el dibujo estructural mediante modelo BIM en Revit Structure. La estrategia metodológica combina clases magistrales con talleres de resolución de ejercicios, aprendizaje basado en proyectos, exposiciones y visita de obra, con cálculos realizados de forma manual y con herramientas informáticas, y con uso ético y declarado de la inteligencia artificial. Estos contenidos permiten al futuro arquitecto proponer estructuras en acero coherentes con su proyecto y comunicarlas mediante planos construibles.",
+    "horario": {
+      "dias": "Lunes y miércoles",
+      "inicio": "16:00",
+      "fin": "18:00",
+      "aula": "A03"
+    },
+    "telefono": "0992690055",
+    "telefono_internacional": "+593992690055",
+    "docente_titulo": "Dr.",
+    "moodle": "https://lms.ute.edu.ec/login/"
+  },
+  "tutorias": {
+    "dia": "viernes",
+    "inicio": "10:00",
+    "fin": "11:00",
+    "modalidad": "Presencial",
+    "lugar": "Oficina del docente, Departamento de Posdoctorado, Universidad UTE",
+    "reserva": "Reserve la cita con unos días de anticipación.",
+    "canales": [
+      {
+        "tipo": "whatsapp-docente",
+        "texto": "WhatsApp",
+        "enlace": "https://wa.me/593992690055",
+        "detalle": "0992690055"
+      },
+      {
+        "tipo": "telefono",
+        "texto": "Teléfono",
+        "enlace": "tel:+593992690055",
+        "detalle": "0992690055"
+      },
+      {
+        "tipo": "correo",
+        "texto": "Correo institucional",
+        "enlace": "mailto:majid.khorami@ute.edu.ec",
+        "detalle": "majid.khorami@ute.edu.ec"
+      },
+      {
+        "tipo": "whatsapp",
+        "texto": "Chat grupal del curso",
+        "enlace": "https://chat.whatsapp.com/Jq1ZfBdD0wx2L6sK9Ssxy6",
+        "detalle": "Enlace de invitación al grupo del curso en WhatsApp"
+      }
+    ],
+    "excepciones": [
+      {
+        "fecha": "2026-11-27",
+        "texto": "No hay tutoría: ese día es la visita de obra."
+      }
+    ],
+    "turno_minutos": 15,
+    "anticipacion_dias": 2,
+    "no_disponible": [
+      {
+        "fecha": "2026-10-09",
+        "texto": "Feriado nacional: Independencia de Guayaquil."
+      },
+      {
+        "fecha": "2026-11-27",
+        "texto": "Visita de obra."
+      },
+      {
+        "fecha": "2026-12-25",
+        "texto": "Feriado nacional: Navidad."
+      },
+      {
+        "fecha": "2027-01-01",
+        "texto": "Feriado nacional: Año Nuevo."
+      }
+    ]
+  },
+  "unidades": [
+    {
+      "id": "1",
+      "titulo": "El acero estructural: material, perfiles y normativa"
+    },
+    {
+      "id": "2",
+      "titulo": "Sistemas estructurales metálicos"
+    },
+    {
+      "id": "3",
+      "titulo": "Conexiones, fabricación y montaje"
+    },
+    {
+      "id": "4",
+      "titulo": "Análisis y predimensionamiento de elementos en acero"
+    },
+    {
+      "id": "5",
+      "titulo": "Dibujo estructural y documentación del proyecto (Revit Structure)"
+    },
+    {
+      "id": "C",
+      "titulo": "Cierre del semestre: examen final, remedial y notas",
+      "nota": "Agrupación para mostrar las sesiones 28 a 32; no es una unidad del sílabo."
+    }
+  ],
+  "sesiones": [
+    {
+      "n": 1,
+      "fecha": "2026-10-05",
+      "unidad": "1",
+      "tema": "Unidad 1. El acero estructural: material, perfiles y normativa. 1.1 Presentación del curso y fundamentos de las estructuras metálicas: socialización del sílabo, canales, reseña histórica (Puente de Hierro 1779, proceso Bessemer, Torre Eiffel), rol del arquitecto y del ingeniero.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Socialización del sílabo, criterios de evaluación, niveles de uso de IA y canales de comunicación (Aula Virtual). Exposición participativa sobre la reseña histórica de las estructuras metálicas (Puente de Hierro 1779, proceso Bessemer, Torre Eiffel) y el rol del arquitecto y del ingeniero. Diagnóstico de conocimientos previos de Taller estructural I mediante cuestionario interactivo en vivo, sin uso de IA."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Reconocimiento de estructuras metálicas del entorno: en grupos, identificación en fotografías y planos de tres obras (una ecuatoriana) de su sistema estructural, perfiles y uniones visibles, con un croquis a mano. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Elaborar una línea de tiempo con cinco hitos de la arquitectura en acero, incluyendo una obra ecuatoriana. Se permite usar IA solo para explorar fuentes y traducir; la selección de obras y la redacción deben ser propias, con declaración del uso de IA en APA 7."
+        }
+      ],
+      "nota_revision": "El subtema 1.1 aparece vacío en la versión 3; se usa el texto de la versión anterior."
+    },
+    {
+      "n": 2,
+      "fecha": "2026-10-07",
+      "unidad": "1",
+      "tema": "1.2 El acero como material: composición Fe–C y efecto del carbono, diferencia acero/hierro, fabricación (lingotes, 1370–1530 °C), laminado en caliente y conformado en frío.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase magistral participativa sobre la composición Fe–C y el efecto del carbono, la diferencia entre hierro y acero, el proceso siderúrgico y el laminado en caliente frente al conformado en frío, con muestras físicas de perfiles. Preguntas orales dirigidas sin uso de dispositivos."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Práctica de reconocimiento de muestras físicas de perfiles laminados en caliente y conformados en frío: identificación de marcas de laminación, medición de espesores con calibrador y registro fotográfico comparativo por grupos. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Elaborar un mapa conceptual del proceso de fabricación del acero y revisar la píldora de aprendizaje sobre el ensayo de tracción como preparación de la Sesión 3. La IA puede usarse solo para explorar fuentes y corregir redacción; su uso se declara en APA 7."
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "fecha": "2026-10-12",
+      "unidad": "1",
+      "tema": "1.3 Propiedades físicas y mecánicas: diagrama esfuerzo–deformación (zona elástica, fluencia, endurecimiento, E, Fy), constantes comunes (E, G, ν, dilatación, densidad), tipos de rotura (dúctil, frágil, fatiga) y factores que la condicionan.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "A partir de la píldora revisada, construcción colectiva en pizarra del diagrama esfuerzo–deformación (zona elástica, fluencia, endurecimiento), obtención de E y Fy con datos reales y análisis de los tipos de rotura."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Análisis de un ensayo de tracción a partir de videos y fotografías de ensayos reales proyectados en clase: identificación de las etapas del ensayo (probeta, fluencia, estricción y rotura), registro de los datos de carga–alargamiento proporcionados por el docente y trazado de la curva esfuerzo–deformación en hoja de cálculo. La IA se permite solo para depurar fórmulas; la interpretación es personal y declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Análisis de los datos del acero estructural disponible en Ecuador: recopilar fichas técnicas y certificados de calidad de fabricantes y distribuidores nacionales (p. ej., Novacero, Ipac, Dipac), extraer Fy, Fu, E y alargamiento, compararlos con los valores de ASTM A36, A572 Gr 50 y NEC-SE-AC y con la curva obtenida en clase, y concluir sobre su idoneidad para uso estructural en un informe técnico. La IA se permite solo para localizar fuentes y corregir la redacción; la tabla comparativa y las conclusiones son propias y el uso de IA se declara."
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "fecha": "2026-10-14",
+      "unidad": "1",
+      "tema": "1.4 Tipos de acero estructural: ASTM A36 y A572 Gr 50 (estándar en Ecuador, NEC-SE-AC Tabla 3), disponibilidad nacional, ventajas y desventajas del acero. 1.5 Perfiles y productos: laminados, conformados y armados (soldados); propiedades geométricas de perfiles L, I/H, C, tubulares; chapa grecada / steel deck, conectores de corte (Nelson studs), cubierta autoportante.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Exposición sobre ASTM A36 y A572 Gr 50 y su disponibilidad en Ecuador; clasificación de perfiles laminados, conformados y armados; steel deck y conectores de corte. Cuestionario interactivo en vivo sin IA."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Taller de identificación de perfiles con muestras y catálogos de proveedores nacionales: medición de secciones y obtención de A, Ix, Sx y rx en tablas. La IA solo puede verificar cálculos de propiedades de secciones armadas."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Ficha técnica comparativa de cuatro perfiles (L, I/H, C, tubular) y una lámina deck de catálogo nacional. Uso de IA acotado a búsqueda de catálogos y declarado."
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "fecha": "2026-10-19",
+      "unidad": "1",
+      "tema": "1.6 Normativa y filosofía de diseño: NEC-SE-AC, NEC-SE-CG, AISC 360, AWS D1.1, Eurocódigo 3; métodos ASD y LRFD, combinaciones de carga.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase magistral sobre el marco normativo (NEC-SE-AC, NEC-SE-CG, AISC 360, AWS D1.1, Eurocódigo 3) y la filosofía ASD frente a LRFD. Ejercicios guiados de combinaciones de carga LRFD en pizarra, sin dispositivos."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Aplicación de las combinaciones de carga LRFD en hoja de cálculo a un caso de piso metálico entregado por el docente, identificando la combinación crítica. La IA se permite solo para depurar fórmulas; los resultados son propios y su uso se declara."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Cuadro comparativo ASD–LRFD y resolución de tres ejercicios de combinaciones de carga. La IA solo puede usarse para localizar artículos normativos; los cálculos son propios."
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "fecha": "2026-10-21",
+      "unidad": "2",
+      "tema": "Evaluación de conocimientos de la Unidad 1. Unidad 2. Sistemas estructurales metálicos. 2.1 Concepto de sistema estructural y parámetros de elección: función, cargas (muertas, vivas, viento, sismo), constructibilidad y plazo, sostenibilidad. 2.2 Clasificación por material y aplicaciones: acero, aluminio, aleaciones ligeras; edificios en altura, grandes luces, naves.",
+      "evaluacion": "Prueba escrita de la Unidad 1, al inicio de la sesión (aprox. 30 min), en aula, sin dispositivos ni uso de IA.",
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase participativa sobre el concepto de sistema estructural y los parámetros de elección; análisis grupal de casos (edificio en altura, gran luz, nave industrial)."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Taller de comparación de alternativas de sistema estructural: matriz de decisión (cargas, constructibilidad, plazo, sostenibilidad) aplicada en grupos a un caso entregado por el docente, con esquema a mano de cada alternativa. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAAD",
+          "texto": "Inicio del proyecto integrador: sobre un proyecto arquitectónico propio o un referente, proponer dos alternativas de sistema estructural metálico y justificar la elección (cargas, constructibilidad, plazo, sostenibilidad). Uso amplio de IA con declaración de herramienta, fines y proceso; el estudiante responde por la decisión."
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "fecha": "2026-10-26",
+      "unidad": "2",
+      "tema": "2.3 Pórticos de nudos rígidos (PRM/MRF): concepto de empotramiento, unión rígida viga–columna, estabilidad y límites de altura, ventajas, desventajas y aplicaciones; comparación con el PRM en hormigón armado. 2.4 Pórticos de nudos articulados: entramado articulado, estable solo con arriostramiento o núcleo, tipologías de unión (pilar continuo/viga apoyada, viga continua), naves industriales y coliseos.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Exposición sobre pórticos de nudos rígidos y articulados, estabilidad, límites de altura y comparación con el PRM de hormigón armado; análisis de naves industriales y coliseos."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Taller de maquetas: construcción de pórticos a escala con uniones rígidas y articuladas y prueba de carga lateral para observar la deformación. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Informe breve con registro fotográfico que compare el comportamiento observado de ambos pórticos. IA solo para corrección de redacción, declarada."
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "fecha": "2026-10-28",
+      "unidad": "2",
+      "tema": "2.5 Arriostramientos: función, tipos por barras (X o Cruz de San Andrés, diagonal, K, V, V invertida), excéntrico, arriostramiento por muros. Caso: Centro de Distribución Renault (Foster). 2.6 Sistemas combinados: pórtico–pantalla, núcleos abiertos y cerrados a flexión y torsión. Caso: Capital Gate.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase sobre arriostramientos (X, diagonal, K, V, V invertida, excéntrico, muros) y sistemas combinados; análisis de los casos Centro Renault y Capital Gate."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Continuación de la maqueta: incorporación de arriostramientos y núcleo; reto entre grupos para lograr la mayor rigidez lateral con el menor material. Sin uso de IA."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Esquema del sistema de arriostramiento propuesto para el proyecto integrador. IA acotada a exploración de referentes, declarada."
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "fecha": "2026-11-04",
+      "unidad": "2",
+      "tema": "2.7 Sistemas alternativos y estética estructural: cáscaras, tensión, espaciales, arcos, geodésicas, plegadas, inflables, glulam, SIP, mampostería confinada; casos emblemáticos (Crystal Palace, Pompidou, Guggenheim Bilbao, Heydar Aliyev, Burj Khalifa); tendencias (impresión 3D, fabricación robotizada, reciclaje).",
+      "evaluacion": null,
+      "hito": "Exposiciones grupales (se evalúan con rúbrica).",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Exposiciones grupales sobre sistemas alternativos y obras emblemáticas (Crystal Palace, Pompidou, Guggenheim Bilbao, Heydar Aliyev, Burj Khalifa) y conversatorio sobre estética estructural y tendencias."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Taller de análisis gráfico de las obras emblemáticas: cada grupo dibuja a mano un esquema del sistema estructural de su obra (apoyos y trayectoria de cargas) y lo relaciona con la forma arquitectónica. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAAD",
+          "texto": "Preparación de la exposición: análisis del sistema estructural de la obra asignada y su relación con la forma. Uso amplio de IA con declaración de herramienta y fines; el grupo documenta el proceso y responde por el contenido."
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "fecha": "2026-11-09",
+      "unidad": "3",
+      "tema": "Evaluación de conocimientos de la Unidad 2. Unidad 3. Conexiones, fabricación y montaje. 3.1 Fundamentos de las conexiones: propósito e integridad estructural; conexiones soldadas, atornilladas y remachadas. 3.2 Uniones soldadas: tipos de soldadura, procesos (SMAW/electrodo revestido, MIG), soldadura en taller y en obra, ventajas y desventajas. 3.3 Uniones atornilladas: clasificación, pernos de alta resistencia, ventajas y desventajas.",
+      "evaluacion": "Prueba escrita de la Unidad 2, al inicio de la sesión (aprox. 30 min), en aula, sin dispositivos ni uso de IA.",
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase magistral con muestras físicas de uniones: tipos de soldadura, procesos SMAW y MIG, soldadura en taller y en obra, pernos de alta resistencia; detalles reales de obras en Quito."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Práctica demostrativa en taller de metalmecánica: observación de soldadura SMAW/MIG, armado de una unión atornillada e identificación de defectos, bajo normas de seguridad."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Ficha comparativa soldadura–pernos con croquis a mano de cada tipo de unión. IA solo para explorar fuentes, declarada."
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "fecha": "2026-11-11",
+      "unidad": "3",
+      "tema": "WinAreQ",
+      "evaluacion": null,
+      "hito": "Evento académico WinAreQ de la FAU (se registra asistencia y participación).",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Participación en el evento académico WinAreQ de la FAU, con acompañamiento docente para orientar la observación crítica de ponencias sobre estructuras y construcción."
+      },
+      "ape": null,
+      "aa": []
+    },
+    {
+      "n": 12,
+      "fecha": "2026-11-16",
+      "unidad": "3",
+      "tema": "WinAreQ",
+      "evaluacion": null,
+      "hito": "Evento académico WinAreQ de la FAU.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Participación en el evento académico WinAreQ de la FAU, con acompañamiento docente."
+      },
+      "ape": null,
+      "aa": []
+    },
+    {
+      "n": 13,
+      "fecha": "2026-11-18",
+      "unidad": "3",
+      "tema": "EXAMEN PARCIAL 1. 3.4 Tipología de conexiones: viga–columna, viga–viga, empalmes (splice), riostras y cartelas (gusset), placa base y anclaje a la cimentación (pernos, grout). 3.5 Conexiones precalificadas y criterios de selección: cargas, fabricación, montaje, costo y estética; AISC 358, AWS, EC3. Casos: Taipei 101, Mediateca de Sendai.",
+      "evaluacion": "Examen Parcial 1 (Unidades 1–2 y temas 3.1–3.3), individual, en aula, sin dispositivos.",
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Aplicación individual del Examen Parcial 1 (Unidades 1–2 y temas 3.1–3.3) en aula, sin dispositivos. A continuación, exposición breve de tipologías de conexiones y conexiones precalificadas (AISC 358) con los casos Taipei 101 y Mediateca de Sendai."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Taller de identificación de tipologías de conexiones (viga–columna, empalmes, cartelas y placa base) en fotografías y detalles de obras reales, con un esquema a mano de la transmisión de cargas en dos conexiones. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Autoevaluación: ficha de análisis de errores del Examen Parcial 1 con la corrección de cada ejercicio. IA solo para explicar conceptos, declarada."
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "fecha": "2026-11-23",
+      "unidad": "3",
+      "tema": "3.6 Fabricación en taller: planos de taller, corte (oxicorte, plasma, láser, sierra) y preparación de bordes, armado y soldadura, protección anticorrosiva (pintura, galvanizado), control de calidad con ensayos no destructivos (VT, UT, RT, MT, PT, ET). REGISTRO DE NOTAS PRIMER APORTE.",
+      "evaluacion": null,
+      "hito": "Registro de notas del primer aporte.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase basada en experiencia profesional sobre fabricación en taller: planos de taller reales, corte, preparación de bordes, armado, protección anticorrosiva y ensayos no destructivos."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Taller de lectura de un plano de taller real: identificación de piezas, marcas, soldaduras y lista de materiales. IA permitida solo para interpretar simbología AWS, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Investigación en grupos sobre uno de los temas asignados: (a) tipos de electrodos y consumibles de soldadura (clasificación AWS, p. ej. E6011, E7018, y alambres para MIG) y su uso en taller y obra; (b) tipos de pinturas y sistemas de recubrimiento (anticorrosivos, epóxicos, poliuretanos, intumescentes) y preparación de superficie; (c) otros métodos de protección contra la corrosión (galvanizado en caliente, metalizado, aceros resistentes a la intemperie, detalles constructivos que evitan la acumulación de agua). Cada grupo elabora una ficha técnica con productos disponibles en Ecuador y la presenta en la sesión siguiente. La IA se permite solo para explorar fuentes y corregir la redacción; la selección de información y las conclusiones son propias y el uso de IA se declara."
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "fecha": "2026-11-25",
+      "unidad": "3",
+      "tema": "3.7 Montaje en obra: transporte, grúa, secuencia de montaje, uniones en sitio, control de calidad y seguridad. Visita de obra. 27/11/2026.",
+      "evaluacion": null,
+      "hito": "Exposición del grupo asignado sobre equipos de grúa.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase breve sobre transporte, grúa, secuencia de montaje, uniones en sitio y seguridad. Exposición de un grupo de estudiantes sobre equipos de grúa para el montaje de estructuras metálicas: tipos de grúas, características principales, criterios de selección y ubicación de la grúa torre en obra, y conocimientos necesarios para ejecutar el montaje con seguridad. Preguntas y retroalimentación del docente al final de la exposición."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Visita técnica a obra o planta de estructura metálica, que se realizará el viernes 27/11/2026 (misma semana de esta sesión); la fecha puede cambiar según la coordinación con la obra y se comunicará con anticipación por el Aula Virtual. Identificación de elementos, conexiones y losa deck, secuencia de montaje, izaje y control de calidad, con acompañamiento docente."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Informe de visita con registro fotográfico y croquis, relacionando lo observado con la Unidad 3 (conexiones, fabricación y montaje). IA solo para redacción, declarada."
+        },
+        {
+          "ia": "IAAD",
+          "texto": "Preparación de la exposición sobre tipos de grúas y montaje (grupo asignado). Se permite usar IA sin restricción para investigar, organizar la información y elaborar el material de apoyo; el grupo declara las herramientas y los fines de uso, verifica la información técnica con catálogos de fabricantes y normativa, y responde por el contenido en la exposición."
+        }
+      ]
+    },
+    {
+      "n": 16,
+      "fecha": "2026-11-30",
+      "unidad": "4",
+      "tema": "Evaluación de conocimientos de la Unidad 3. Unidad 4. Análisis y predimensionamiento de elementos en acero. 4.1 Cargas y áreas tributarias: carga permanente y variable según NEC-SE-CG, introducción a la carga sísmica, combinaciones LRFD, bajada de cargas losa → viga secundaria → viga principal → columna.",
+      "evaluacion": "Prueba escrita de la Unidad 3, al inicio de la sesión (aprox. 30 min), en aula, sin dispositivos ni uso de IA.",
+      "hito": "Proyecto integrador, avance 1.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase magistral y ejercicios guiados en pizarra sobre cargas permanentes y variables (NEC-SE-CG), introducción a la carga sísmica, combinaciones LRFD, áreas tributarias y bajada de cargas losa → viga → columna."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador, avance 1: definición de la grilla estructural, áreas tributarias y cuantificación de cargas en hoja de cálculo. La IA solo puede depurar fórmulas; los criterios son propios y declarados."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Resolución de ejercicios de áreas tributarias y bajada de cargas. IA solo para explicar conceptos, declarada."
+        }
+      ]
+    },
+    {
+      "n": 17,
+      "fecha": "2026-12-02",
+      "unidad": "4",
+      "tema": "4.2 Predimensionamiento de losas con steel deck.",
+      "evaluacion": null,
+      "hito": "Proyecto integrador, avance 2.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Ejercicios guiados de predimensionamiento de losa con steel deck usando tablas de fabricante (luz, calibre, espesor de hormigón, conectores)."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador, avance 2: predimensionamiento de la losa deck con catálogo de proveedor nacional. IA acotada a verificación de hoja de cálculo, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Ejercicios de selección de lámina deck para distintas luces y cargas."
+        }
+      ]
+    },
+    {
+      "n": 18,
+      "fecha": "2026-12-09",
+      "unidad": "4",
+      "tema": "4.3 Vigas: tipos y condiciones de apoyo, perfiles usuales y vigas soldadas, estabilidad lateral (pandeo lateral-torsional, arriostramiento), clasificación de secciones AISC (compacta / no compacta / esbelta, relaciones λ).",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase magistral sobre tipos de vigas, condiciones de apoyo, pandeo lateral-torsional y clasificación de secciones AISC; taller de clasificación de secciones con tablas, sin dispositivos."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador: clasificación de las secciones de las vigas del proyecto (compacta / no compacta / esbelta) con tablas de perfiles y hoja de cálculo. IA acotada a verificación de la hoja de cálculo, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Resolver ejercicios de clasificación de secciones (compacta / no compacta / esbelta) y, como preparación de la Sesión 19, calcular a mano los módulos elástico S y plástico Z de dos perfiles (uno laminado y uno armado) y comparar los resultados con las tablas de perfiles. Llevar los ejercicios resueltos a clase como base para los ejemplos de φMn y predimensionamiento de vigas. IA solo para explicar conceptos, no para resolver; declarar su uso."
+        }
+      ]
+    },
+    {
+      "n": 19,
+      "fecha": "2026-12-14",
+      "unidad": "4",
+      "tema": "4.3 Vigas (continuación): módulos S y Z, resistencia de diseño a flexión φMn; predimensionamiento de vigas secundarias y principales.",
+      "evaluacion": null,
+      "hito": "Proyecto integrador, avance 3.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Resolución de ejemplos modelo en pizarra por parte del docente: cálculo de los módulos S y Z, resistencia de diseño a flexión φMn y predimensionamiento de una viga secundaria y una viga principal con tablas de perfiles. A continuación, taller de ejercicios de dificultad creciente (distintas luces, cargas y condiciones de apoyo), resueltos individualmente y en parejas sin uso de dispositivos, con corrección en pizarra y retroalimentación inmediata."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Taller práctico de ejercicios adicionales de predimensionamiento de vigas y aplicación al proyecto integrador, avance 3: selección de perfiles para vigas secundarias y principales en hoja de cálculo y comprobación manual de un caso. IA solo para depurar la hoja de cálculo, declarada; los cálculos y la selección de perfiles son propios."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Resolución de una serie de ejercicios de φMn y predimensionamiento de vigas secundarias y principales con variación de luces, cargas y perfiles. Se permite usar IA solo para aclarar conceptos, no para resolver; declarar su uso."
+        }
+      ]
+    },
+    {
+      "n": 20,
+      "fecha": "2026-12-16",
+      "unidad": "4",
+      "tema": "4.4 Columnas y elementos a compresión: tipos (columnas, arcos, cerchas, riostras), perfiles, fórmula de Euler, longitud efectiva K, esbeltez y radio de giro.",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase magistral sobre elementos a compresión: fórmula de Euler, longitud efectiva K, esbeltez y radio de giro; demostración física de pandeo y ejercicios guiados."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Práctica de pandeo con modelos a escala: prueba de columnas esbeltas de distinta longitud y condición de apoyo, registro de la carga de pandeo observada y comparación con la carga crítica de Euler calculada. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Ejercicios de esbeltez y carga crítica para distintas condiciones de apoyo. IA solo para explicar conceptos, declarada."
+        }
+      ]
+    },
+    {
+      "n": 21,
+      "fecha": "2027-01-04",
+      "unidad": "4",
+      "tema": "4.4 Columnas (continuación): pandeo local, pandeo elástico e inelástico, resistencia de diseño φPn; predimensionamiento de columnas.",
+      "evaluacion": "Taller en clase (componente sumativo).",
+      "hito": "Proyecto integrador, avance 4.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Ejercicios guiados sobre pandeo local, pandeo elástico e inelástico y resistencia de diseño φPn; predimensionamiento de columnas."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador, avance 4: predimensionamiento de columnas en hoja de cálculo. IA solo para depurar la hoja, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Ejercicios de predimensionamiento de columnas con distintas alturas y cargas."
+        }
+      ]
+    },
+    {
+      "n": 22,
+      "fecha": "2027-01-06",
+      "unidad": "4",
+      "tema": "4.5 Dimensionamiento básico de placa base y cordones de soldadura.",
+      "evaluacion": null,
+      "hito": "Proyecto integrador, avance 5.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Ejercicios guiados de dimensionamiento básico de placa base y cordones de soldadura en una conexión columna–cimentación."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador, avance 5: dimensionamiento de la placa base y el cordón de soldadura de una columna del proyecto, con croquis a mano. IA acotada a verificación, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Ejercicios de placa base y cordón de soldadura."
+        }
+      ]
+    },
+    {
+      "n": 23,
+      "fecha": "2027-01-11",
+      "unidad": "4",
+      "tema": "4.6 Memoria de cálculo: estructura, contenido y presentación.",
+      "evaluacion": null,
+      "hito": "Proyecto integrador, avance 6, y Tarea Integral Parcial: memoria de cálculo.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Exposición sobre estructura y contenido de la memoria de cálculo y tutoría por grupos para revisar los avances del proyecto integrador."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador, avance 6: organización de la memoria de cálculo (índice, hipótesis de carga, tablas y resultados) a partir de las hojas de cálculo de los avances previos. IA acotada a revisión de estructura y redacción, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAAD",
+          "texto": "Tarea Integral Parcial: redacción de la memoria de cálculo del proyecto integrador. Uso amplio de IA con declaración para revisar estructura, redacción y detectar inconsistencias; los resultados numéricos son responsabilidad del estudiante."
+        }
+      ]
+    },
+    {
+      "n": 24,
+      "fecha": "2027-01-13",
+      "unidad": "5",
+      "tema": "Evaluación de conocimientos de la Unidad 4. Unidad 5. Dibujo estructural y documentación del proyecto (Revit Structure). 5.1 El plano estructural: contenido, simbología, nomenclatura de perfiles, escalas, lectura e interpretación de planos de acero.",
+      "evaluacion": "Prueba escrita de la Unidad 4, al inicio de la sesión (aprox. 30 min), en aula, sin dispositivos ni uso de IA.",
+      "hito": "El docente entrega el enunciado del proyecto real del curso.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Presentación del proyecto real del curso: el docente entrega el enunciado con las características y dimensiones de la edificación (uso, número de pisos, altura de entrepiso, luces, grilla y ubicación). Lectura e interpretación de planos estructurales reales de proyectos (contenido, simbología, nomenclatura de perfiles y escalas) como referencia para los planos que desarrollarán, sin uso de dispositivos."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Trabajo práctico en grupos: inicio del proyecto real a partir del enunciado del docente; definición de ejes, niveles, grilla estructural y sistema estructural, y elaboración del primer plano estructural (planta de ejes y ubicación de columnas) con simbología y nomenclatura correctas, con acompañamiento docente. IA solo para dudas de software, declarada; las decisiones estructurales son propias."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Completar el primer avance del proyecto (planta de ejes, niveles y esquema del sistema estructural) para entregarlo en la sesión siguiente; instalar Revit (licencia educativa) y revisar el tutorial básico. IA solo para dudas de software, declarada."
+        }
+      ],
+      "nota": "Esta unidad y su actividad práctica comenzarán antes y se desarrollarán durante el curso; cada semana se pedirá a los estudiantes un avance del proyecto. En estas sesiones se consolida y completa la documentación final."
+    },
+    {
+      "n": 25,
+      "fecha": "2027-01-18",
+      "unidad": "5",
+      "tema": "5.2 Modelo BIM en Revit Structure: configuración, cimentación, columnas, vigas y losa deck del proyecto predimensionado en la Unidad 4.",
+      "evaluacion": null,
+      "hito": "Presentación de los planos a mano y del modelo BIM (se evalúan con rúbrica y lista de cotejo).",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Actividad 1 – Presentación de los planos estructurales elaborados a mano durante el curso (avances semanales de las unidades anteriores): cada grupo expone la planta de ejes, plantas estructurales, elevaciones y detalles del proyecto real, y justifica las decisiones de predimensionamiento; preguntas y retroalimentación del docente. Sin uso de IA durante la presentación."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Actividad 2 – Presentación del trabajo BIM: cada grupo muestra el modelo del proyecto en Revit Structure (configuración, ejes, niveles, cimentación, columnas, vigas y losa deck con los perfiles predimensionados en la Unidad 4) y verifica su coherencia con los planos hechos a mano; revisión y corrección del modelo con acompañamiento docente. IA solo para dudas de software, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Corregir los planos a mano y el modelo BIM según las observaciones recibidas y completar el modelo estructural del proyecto. IA acotada a dudas de software, declarada."
+        }
+      ]
+    },
+    {
+      "n": 26,
+      "fecha": "2027-01-20",
+      "unidad": "5",
+      "tema": "EXAMEN PARCIAL 2",
+      "evaluacion": "Examen Parcial 2 (temas 3.4–3.7, Unidad 4 y temas 5.1–5.2), individual, en aula, sin dispositivos ni uso de IA.",
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Aplicación individual del Examen Parcial 2 (temas 3.4–3.7, Unidad 4 y temas 5.1–5.2) en aula, sin dispositivos ni uso de IA, bajo supervisión del docente."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador: ajuste del modelo BIM en Revit Structure (cimentación, columnas, vigas y losa deck) con las observaciones recibidas en la presentación de planos. IA acotada a consultar el uso de herramientas de Revit, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Repaso previo de ejercicios de predimensionamiento y lectura de planos. La IA puede explicar conceptos, pero no resolver ejercicios; declarar su uso."
+        }
+      ]
+    },
+    {
+      "n": 27,
+      "fecha": "2027-01-25",
+      "unidad": "5",
+      "tema": "5.3 Detalles de secciones y conexiones: cortes, detalles constructivos, placa base, conexiones viga–columna y viga–viga. 5.4 Cálculo de cantidades: tablas de planificación, peso de acero por elemento, resumen de materiales. 5.5 Especificaciones técnicas: materiales, soldadura, pernos, protección, tolerancias. Resolución de examen parcial. 5.6 Láminas y entrega del proyecto integrador: composición de láminas, vistas 3D, presentación y defensa. Evaluación de conocimientos de la Unidad 5. REGISTRO DE NOTAS SEGUNDO APORTE.",
+      "evaluacion": "Prueba escrita de la Unidad 5, al final de la sesión (aprox. 30 min), en aula, sin dispositivos ni uso de IA.",
+      "hito": "Registro de notas del segundo aporte.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Resolución guiada del Examen Parcial 2 con retroalimentación sobre los errores más frecuentes. Orientación, con ejemplos de proyectos reales, sobre cortes y detalles constructivos (placa base, conexiones viga–columna y viga–viga), cálculo de cantidades, especificaciones técnicas y composición de láminas."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Elaboración en Revit de cortes y detalles de conexiones, generación de tablas de cantidades de acero, redacción de especificaciones técnicas y composición de láminas del proyecto integrador, con acompañamiento docente. IA solo para dudas de software, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAAD",
+          "texto": "Completar detalles, láminas y especificaciones para la entrega final. Uso amplio de IA con declaración para revisar especificaciones y detectar inconsistencias entre planos, detalles, cantidades y memoria; el estudiante responde por el resultado."
+        }
+      ]
+    },
+    {
+      "n": 28,
+      "fecha": "2027-01-27",
+      "unidad": "C",
+      "tema": "EXAMEN TERCER APORTE – EXAMEN FINAL",
+      "evaluacion": "Examen Final (tercer aporte), integral, individual, en aula, sin dispositivos ni uso de IA. Evaluación final sumativa: 100 % del componente; 30 % de la ponderación global.",
+      "hito": "Proyecto integrador: verificación de coherencia antes de la entrega final.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Aplicación individual del Examen Final (tercer aporte) integral en aula, sin dispositivos ni uso de IA, bajo supervisión del docente. Incluye preguntas conceptuales y ejercicios que integran los contenidos de las cinco unidades: material y normativa, sistemas estructurales, conexiones, fabricación y montaje, predimensionamiento de elementos y documentación estructural."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador: verificación de la coherencia entre planos, tablas de cantidades y memoria de cálculo antes de la entrega final, con lista de chequeo. IA acotada a revisión de redacción, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Repaso integral de los contenidos del curso y resolución de ejercicios de preparación. La IA puede explicar conceptos, pero no resolver ejercicios; declarar su uso."
+        }
+      ]
+    },
+    {
+      "n": 29,
+      "fecha": "2027-02-01",
+      "unidad": "C",
+      "tema": "AUTOEVALUACIÓN. REGISTRO DE NOTAS TERCER APORTE-EXAMEN FINAL.",
+      "evaluacion": null,
+      "hito": "Registro de notas del tercer aporte.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Revisión guiada del Examen Final, análisis de errores frecuentes y retroalimentación colectiva."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Corrección en hoja de cálculo de los ejercicios del examen en los que se cometieron errores, verificando cada resultado con el procedimiento normativo. IA acotada a verificación de la hoja de cálculo, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Autoevaluación: ficha de análisis de errores del Examen Final y planteamiento de mejoras. IA solo para explicar conceptos, declarada."
+        }
+      ]
+    },
+    {
+      "n": 30,
+      "fecha": "2027-02-03",
+      "unidad": "C",
+      "tema": "TUTORÍA DE PREPARACIÓN PARA EL EXAMEN REMEDIAL",
+      "evaluacion": null,
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Clase de tutoría para los estudiantes que rendirán el Examen Remedial: repaso de los contenidos clave del curso, resolución guiada de ejercicios tipo examen y aclaración de dudas individuales y grupales a partir de los errores más frecuentes en los exámenes parciales, sin uso de dispositivos."
+      },
+      "ape": {
+        "ia": "IANP",
+        "texto": "Resolución en parejas de un problema integrador tipo examen (predimensionamiento de una viga, una columna y una placa base de un pórtico) con tablas de perfiles y calculadora. Actividad presencial sin IA."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Resolución de un banco de ejercicios de preparación para el Examen Remedial. La IA puede explicar conceptos, pero no resolver ejercicios; declarar su uso."
+        }
+      ]
+    },
+    {
+      "n": 31,
+      "fecha": "2027-02-10",
+      "unidad": "C",
+      "tema": "EXAMEN REMEDIAL",
+      "evaluacion": "Examen Remedial, individual, en aula, sin dispositivos ni uso de IA, para los estudiantes que no alcanzaron la nota mínima de aprobación conforme al Reglamento del Estudiante.",
+      "hito": null,
+      "acd": {
+        "ia": "IANP",
+        "texto": "Aplicación individual del Examen Remedial en aula, sin dispositivos ni uso de IA, bajo supervisión del docente, para los estudiantes que no alcanzaron la nota mínima de aprobación conforme al Reglamento del Estudiante. Incluye preguntas conceptuales y ejercicios que integran los contenidos del curso."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Taller de retroalimentación: comparación de la solución propia del examen con la solución modelo y registro de los errores por tema en una hoja de cálculo. IA acotada a verificación de la hoja de cálculo, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Repaso integral de los contenidos del curso y resolución de ejercicios tipo examen, a partir de la retroalimentación recibida. La IA puede explicar conceptos, pero no resolver ejercicios; declarar su uso."
+        }
+      ]
+    },
+    {
+      "n": 32,
+      "fecha": "2027-02-15",
+      "unidad": "C",
+      "tema": "REVISIÓN DE NOTAS. REGISTRO NOTAS EXAMEN REMEDIAL.",
+      "evaluacion": null,
+      "hito": "Registro de notas del examen remedial.",
+      "acd": {
+        "ia": "IANP",
+        "texto": "Revisión guiada del Examen Final, retroalimentación sobre el desempeño del curso, aclaración de calificaciones y revisión de los resultados del examen remedial."
+      },
+      "ape": {
+        "ia": "IAA",
+        "texto": "Proyecto integrador: incorporación de la retroalimentación del docente en la memoria de cálculo y las láminas, y armado de la versión final del portafolio del proyecto. IA acotada a revisión de redacción, declarada."
+      },
+      "aa": [
+        {
+          "ia": "IAA",
+          "texto": "Análisis personal de resultados y, si corresponde, del examen remedial."
+        }
+      ]
+    }
+  ],
+  "eventos": [
+    {
+      "fecha": "2026-11-27",
+      "unidad": "3",
+      "despues_de_sesion": 15,
+      "titulo": "Visita técnica a obra o planta de estructura metálica",
+      "texto": "Parte de la práctica (APE) de la sesión 15. La fecha puede cambiar según la coordinación con la obra y se comunicará con anticipación por el Aula Virtual.",
+      "por_confirmar": true
+    }
+  ],
+  "recursos": [
+    {
+      "grupo": "Bibliografía básica",
+      "referencia": "McCormac, Jack C. Diseño de estructuras de acero: método LRFD, Alfaomega (1991)",
+      "tipo": "Libro",
+      "acceso": "biblioteca",
+      "codigo": "4846",
+      "enlace": "https://www.ute.edu.ec/biblioteca/",
+      "texto_enlace": "Buscar en la Biblioteca UTE"
+    },
+    {
+      "grupo": "Bibliografía básica",
+      "referencia": "Bresler, Boris;Lin, T. Y.;Scalzi, John B. Diseño de estructuras de acero, Limusa (1990)",
+      "tipo": "Libro",
+      "acceso": "biblioteca",
+      "codigo": "4997",
+      "enlace": "https://www.ute.edu.ec/biblioteca/",
+      "texto_enlace": "Buscar en la Biblioteca UTE"
+    },
+    {
+      "grupo": "Bibliografía básica",
+      "referencia": "Rokach, Abraham J. Diseño de estructuras de acero,  McGraw-Hill (1990)",
+      "tipo": "Libro",
+      "acceso": "biblioteca",
+      "codigo": "13987",
+      "enlace": "https://www.ute.edu.ec/biblioteca/",
+      "texto_enlace": "Buscar en la Biblioteca UTE"
+    },
+    {
+      "grupo": "Bibliografía complementaria",
+      "referencia": "Ministerio de Desarrollo Urbano y Vivienda, NEC-SE 2015 – todos los capítulos",
+      "tipo": "Norma de Diseño",
+      "acceso": "abierto",
+      "codigo": null,
+      "enlace": "https://www.habitatyvivienda.gob.ec/documentos-normativos-nec-norma-ecuatoriana-de-la-construccion/",
+      "texto_enlace": "Abrir los documentos NEC en el portal del MIDUVI"
+    },
+    {
+      "grupo": "Bibliografía complementaria",
+      "referencia": "Khorami, M., Khorami, M., Motahar, H., Alvansazyazdi, M., Shariati, M., Jalali, A., & Tahir, M. M. (2017). Evaluation of the seismic performance of special moment frames using incremental nonlinear dynamic analysis. Struct. Eng. Mech, 63(2), 259-268.",
+      "tipo": "Artículo Científico",
+      "acceso": "abierto",
+      "codigo": null,
+      "enlace": null,
+      "nota": "Enlace por actualizar: el del sílabo era una descarga temporal que ya no funciona."
+    },
+    {
+      "grupo": "Bibliografía complementaria",
+      "referencia": "Khorami, M., Alvansazyazdi, M., Shariati, M., Zandi, Y., Jalali, A., & Tahir, M. (2017). Seismic performance evaluation of buckling restrained braced frames (BRBF) using incremental nonlinear dynamic analysis method (IDA). Earthq. Struct, 13(6), 531-538.",
+      "tipo": "Artículo Científico",
+      "acceso": "por confirmar",
+      "codigo": null,
+      "enlace": null,
+      "nota": "Enlace por actualizar: el del sílabo era una descarga temporal que ya no funciona."
+    }
+  ],
+  "politicas": {
+    "evaluacion_tabla": [
+      {
+        "periodo": "Primera Evaluación Parcial",
+        "formativo": "60%",
+        "sumativo": "40%",
+        "global": "35%"
+      },
+      {
+        "periodo": "Segunda Evaluación Parcial",
+        "formativo": "60%",
+        "sumativo": "40%",
+        "global": "35%"
+      },
+      {
+        "periodo": "Evaluación Final o sumativa",
+        "formativo": "-",
+        "sumativo": "100%",
+        "global": "30%"
+      }
+    ],
+    "evaluacion_total": "100%",
+    "ia_conducta": [
+      "Asumir el rol de autor principal en todas las actividades académicas, utilizando la Inteligencia Artificial (IA) exclusivamente como una herramienta de apoyo para la comprensión o síntesis, asegurando que el razonamiento, análisis y criterio personal sean el eje central de sus trabajos, tareas y evaluaciones.",
+      "Declarar obligatoriamente el uso de IA en sus trabajos y tareas (especificando herramienta y alcance) bajo Normas APA 7.ª edición, para salvaguardar la integridad académica.",
+      "Mantener una conducta ética durante las evaluaciones, absteniéndose del uso de IA o cualquier recurso no autorizado, asumiendo la responsabilidad total sobre la evaluación de su aprendizaje."
+    ],
+    "niveles_ia": {
+      "IANP": {
+        "nombre": "IA no permitida",
+        "texto": "Nivel de uso no permitido (IANP).- implica que en las actividades y evaluaciones los estudiantes no pueden utilizar la IA de ninguna forma. Para asegurarlo el docente debe organizar actividades y evaluaciones con control absoluto, privilegiando la implementación de evaluaciones orales, exposiciones, defensas o actividades presenciales con la supervisión del docente. También implica la instalación de restricciones para el uso de otras aplicaciones o el acceso a internet en los laboratorios de la universidad en los momentos en los que se realizan estas evaluaciones o actividades, lo que deberá coordinar con antelación con la Dirección de Sistemas Digitales."
+      },
+      "IAA": {
+        "nombre": "IA acotada",
+        "texto": "Nivel de uso acotado (IAA).- implica que se permite el uso de la IA para la realización de ciertos aspectos de las actividades o evaluaciones, así como la restricción del uso de la misma para otros puntos. En este nivel, el uso de la IA también debe ser declarado por el estudiante y propicia la retroalimentación del docente."
+      },
+      "IAAD": {
+        "nombre": "IA amplia con declaración",
+        "texto": "Nivel de uso amplio con declaración (IAAD).- implica el uso de la IA sin restricción en el marco de actividades y evaluaciones que persiguen el desarrollo de competencias que se encuentran en el 3er nivel taxonómico de habilidades cognitivas “Resolución de Problemas”, como son: detección de errores, creación, evaluación, argumentación, toma de decisiones, planificación de acciones, etc). En este nivel de uso de la IA obliga a que el estudiante informe o declare sobre el tipo de IA utilizada y fines de uso; así también, propicia la retroalimentación del docente."
+      }
+    },
+    "componentes": {
+      "ACD": {
+        "nombre": "En clase",
+        "texto": "ACD (Aprendizaje en Contacto con el Docente): Hace referencia a las horas de aprendizaje sincrónico o en interacción directa presencial/virtual con el docente. Son obligatorias en todas las sesiones de clase e incluyen actividades como clases magistrales, talleres en aula o debates guiados."
+      },
+      "APE": {
+        "nombre": "Práctica",
+        "texto": "APE (Aprendizaje Práctico-Experimental): Corresponde a las actividades de aplicación práctica desarrolladas bajo la guía o acompañamiento del docente. Se planifican de forma semanal e incluyen laboratorios, simulaciones, resolución de problemas o talleres aplicados"
+      },
+      "AA": {
+        "nombre": "Trabajo autónomo",
+        "texto": "AA (Aprendizaje Autónomo): Se refiere al trabajo e investigación individual que el estudiante realiza fuera del aula de clase. Abarca actividades como lecturas, ensayos, elaboración de mapas mentales o resolución de cuestionarios de preparación y refuerzo"
+      }
+    },
+    "recursos_aprendizaje": [
+      {
+        "titulo": "Plataformas Institucionales y Entornos Virtuales",
+        "items": [
+          "Aula Virtual (Moodle): Repositorio principal de material asíncrono, recepción de entregables y gestión del aprendizaje autónomo.",
+          "Plataformas de videoconferencia: Microsoft Teams o Zoom (para tutorías virtuales o seguimiento de proyectos).",
+          "Bases de datos de la Biblioteca Virtual: Repositorios institucionales."
+        ]
+      },
+      {
+        "titulo": "Software y Herramientas Tecnológicas Especializadas",
+        "items": [
+          "Modelado BIM, cálculo y simulación: Revit Structure, hoja de cálculo y GeoGebra. Herramienta de inteligencia artificial autorizada como apoyo al aprendizaje: ChatGPT (consulta de conceptos, revisión de redacción y apoyo en la verificación de procedimientos de cálculo), siempre con verificación crítica del estudiante y declaración de su uso en los trabajos entregados."
+        ]
+      },
+      {
+        "titulo": "Materiales Didácticos y Bibliográficos",
+        "items": [
+          "Guías de estudio y material en PDF.",
+          "Videos interactivos o píldoras de aprendizaje (Flipped Learning)."
+        ]
+      }
+    ]
+  },
+  "entregas": {
+    "regla": "El trabajo autónomo se entrega en la siguiente clase, una hora antes de que empiece.",
+    "minutos_antes": 60
+  },
+  "fotos": [
+    {
+      "archivo": "img/foto-1.jpg",
+      "alt": "Pórticos de acero gris con vigas y columnas en construcción"
+    },
+    {
+      "archivo": "img/foto-2.jpg",
+      "alt": "Estructura metálica verde de varios pisos con vigas secundarias"
+    },
+    {
+      "archivo": "img/foto-3.jpg",
+      "alt": "Pórticos con columnas azules, vigas rojas y arriostramientos en X"
+    },
+    {
+      "archivo": "img/foto-4.jpg",
+      "alt": "Vigas amarillas y arriostramientos de acero vistos desde abajo"
+    },
+    {
+      "archivo": "img/foto-5.jpg",
+      "alt": "Estructura metálica verde con conexiones empernadas sobre la cimentación"
+    },
+    {
+      "archivo": "img/foto-6.jpg",
+      "alt": "Detalle de una viga verde con conexión empernada"
+    },
+    {
+      "archivo": "img/foto-7.jpg",
+      "alt": "Detalle de conexiones empernadas en vigas verdes"
+    }
+  ]
+}
