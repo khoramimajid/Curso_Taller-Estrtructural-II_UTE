@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es-EC">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mi código de asistencia: Taller estructural II (UTE)</title>
+  <meta name="description" content="Código QR personal de asistencia del curso Taller estructural II: Estructuras metálicas.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#1d2830">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='4' fill='none' stroke='%23A8391F' stroke-width='3'/%3E%3Crect x='9' y='9' width='6' height='6' fill='%23A8391F'/%3E%3Crect x='17' y='17' width='6' height='6' fill='%23A8391F'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body class="pagina-qr">
+  <header class="cabecera cabecera--compacta">
+    <p class="cabecera__inst">Universidad UTE, Taller estructural II: Estructuras metálicas</p>
+    <h1 class="cabecera__titulo cabecera__titulo--pequeno">Mi código de asistencia</h1>
+  </header>
+
+  <main id="contenido">
+    <section id="paso-datos" class="tarjeta tarjeta--form" hidden aria-labelledby="datos-titulo">
+      <h2 id="datos-titulo">Genera tu código de hoy</h2>
+      <p>En cada clase, abre este enlace y pulsa «Generar mi código». Tus nombres quedan guardados en este teléfono y el código lleva la fecha y la hora en que lo generas.</p>
+      <form id="form-datos" novalidate>
+        <label class="campo__etiqueta" for="nombres">Nombres completos</label>
+        <input class="campo" id="nombres" name="nombres" autocomplete="given-name" autocapitalize="words" maxlength="60" required aria-describedby="nombres-error" placeholder="Por ejemplo: Ana María">
+        <p class="campo__error" id="nombres-error" aria-live="polite"></p>
+
+        <label class="campo__etiqueta" for="apellidos">Apellidos completos</label>
+        <input class="campo" id="apellidos" name="apellidos" autocomplete="family-name" autocapitalize="words" maxlength="60" required aria-describedby="apellidos-ayuda apellidos-error" placeholder="Por ejemplo: Pérez López">
+        <p class="campo__ayuda" id="apellidos-ayuda">Los dos apellidos, como aparecen en la lista del curso.</p>
+        <p class="campo__error" id="apellidos-error" aria-live="polite"></p>
+
+        <div class="aviso aviso--suave" role="note">
+          <p><strong>Tus datos se quedan en este teléfono.</strong> No se envían a internet ni quedan en este sitio. El docente los ve cuando escanea tu código en clase.</p>
+        </div>
+        <button class="boton boton--verde boton--ancho" type="submit">Generar mi código</button>
+      </form>
+    </section>
+
+    <section id="paso-qr" hidden aria-labelledby="qr-titulo">
+      <h2 id="qr-titulo" class="solo-lector">Tu código QR</h2>
+      <div class="qr-marco">
+        <canvas id="qr" role="img" aria-label="Código QR de asistencia"></canvas>
+        <dl class="qr-datos">
+          <dt>Apellidos</dt><dd id="qr-apellidos"></dd>
+          <dt>Nombres</dt><dd id="qr-nombres"></dd>
+          <dt>Generado</dt><dd id="qr-generado"></dd>
+        </dl>
+      </div>
+      <p class="qr-instruccion">Muéstralo al docente con el <strong>brillo de la pantalla alto</strong>. Mantén el teléfono quieto a unos 20 cm de la cámara.</p>
+      <div class="qr-acciones">
+        <button class="boton boton--verde" type="button" id="regenerar">Generar de nuevo (hora actual)</button>
+        <button class="boton boton--secundario" type="button" id="descargar">Guardar como imagen</button>
+        <button class="boton boton--texto" type="button" id="cambiar">Corregir mis datos</button>
+      </div>
+      <p class="nota">La imagen guardada incluye tus datos, la fecha y la hora. El docente ve los mismos datos al escanear y sabe si el código es de hoy.</p>
+    </section>
+
+    <div id="error-qr" class="aviso aviso--error" hidden></div>
+  </main>
+
+  <footer class="pie">
+    <p><a href="./">Volver al sitio del curso</a></p>
+    <p>El registro oficial de asistencia es el de la Universidad UTE.</p>
+  </footer>
+
+  <script src="js/vendor/qrcode-generator-1.4.4.js"></script>
+  <script src="js/guardar.js"></script>
+  <script src="js/qr-comun.js"></script>
+  <script src="js/asistencia.js"></script>
+</body>
+</html>
