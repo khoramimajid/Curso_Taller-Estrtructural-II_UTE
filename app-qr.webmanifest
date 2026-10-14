@@ -1,0 +1,31 @@
+{
+  "id": "./asistencia.html",
+  "name": "Mi QR de asistencia – Taller II",
+  "short_name": "QR Taller II",
+  "start_url": "./asistencia.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d2830",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icono-qr-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icono-qr-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icono-qr-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
