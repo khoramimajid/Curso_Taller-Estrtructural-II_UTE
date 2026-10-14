@@ -18,7 +18,7 @@ Este sitio **complementa** el Aula Virtual (Moodle). No recibe entregas ni regis
 **Una sola vez, al inicio del semestre**
 
 1. Abra `registro.html` en la laptop que usará en clase (Chrome o Edge, desde la dirección https de GitHub Pages).
-2. Pegue la lista del curso, un estudiante por línea con su número (por ejemplo `1	PÉREZ/LÓPEZ, ANA MARÍA`, con nombres ficticios en este ejemplo), o cargue el archivo `lista_PROF00820_2026-2.csv`. Pulse **Guardar la lista**. La lista queda **solo en ese navegador**: no se sube a internet ni va en este repositorio.
+2. La lista del curso (25 estudiantes, en orden alfabético) está en `lista-curso.js` y se carga sola. Para cambiarla, edite ese archivo en GitHub y cambie `LISTA_VERSION` (por ejemplo, a la fecha de hoy): al abrir el registro, la lista del navegador se reemplaza y la asistencia ya registrada pasa a cada estudiante según su nombre, aunque cambie su número. **Ojo:** el repositorio es público, así que esos nombres los puede ver cualquiera.
 3. Si usará QR, envíe por WhatsApp el enlace `https://SU-USUARIO.github.io/taller-estructural-ii/asistencia.html`. En cada clase, el estudiante pulsa «Generar mi código»: sus nombres quedan guardados en el teléfono y el QR lleva la fecha y la hora del momento.
 
 **En cada clase**
@@ -29,17 +29,15 @@ Este sitio **complementa** el Aula Virtual (Moodle). No recibe entregas ni regis
    - **Marcar todos presentes** y luego tocar a quien no vino.
    - **Escanear QR:** se abre la cámara en vivo (en GitHub Pages). Si la cámara no se enciende, como ocurre dentro del visor de Claude, use **Tomar foto del QR**: en el celular abre la cámara del teléfono y el registro lee la foto. Con la cámara en vivo, cada estudiante acerca su teléfono y aparece su número y nombre con un tono. El sitio reconoce el nombre aunque el estudiante lo haya escrito incompleto o sin tildes, y **le avisa en amarillo si el código no se generó hoy** (por ejemplo, la captura de un compañero). Si hay dudas (por ejemplo, dos estudiantes con el mismo apellido), le pregunta a usted, y el caso queda en **Por resolver** para decidir después, sin frenar la fila. Después de la primera vez, cada QR se reconoce solo por su código.
 3. Compare el nombre de la pantalla con la persona que tiene delante.
-4. **Al terminar, envíe la asistencia** con cualquiera de los dos botones:
-   - **Enviar la lista a mi correo (texto):** abre su correo (Outlook en la laptop, la app de correo en el celular) con el asunto y la lista de presentes y faltas escrita en el mensaje. Solo falta pulsar Enviar.
-   - **Enviar Excel por WhatsApp:** en el celular, desde su enlace de GitHub Pages, abre el menú Compartir con el Excel adjunto: elija WhatsApp y su chat. Si su equipo no ofrece Compartir, el Excel se descarga y se abre WhatsApp para que lo adjunte con el clip.
-   - El registro muestra «Aún no envió la asistencia de esta sesión» hasta que lo haga.
+4. **Al terminar, pulse «Enviar Excel a mi correo».**
+   - En Windows se abre el panel **Compartir** con el Excel ya adjunto: elija Outlook o Correo y envíelo a su dirección.
+   - Si su navegador no tiene esa opción, el Excel se descarga y se abre un correo listo, dirigido a majid.khorami@ute.edu.ec: solo arrastre el archivo descargado al correo.
+   - El registro muestra «Aún no envió el Excel de esta sesión» hasta que lo haga, y lo avisa de nuevo si cambia algo después.
 
-**El registro siempre abre en la fecha de hoy.** Si hoy hay clase, abre esa sesión. Si no hay clase programada (por ejemplo, un sábado o el día de la visita de obra), abre «Hoy, … (sin clase programada)», donde también puede tomar asistencia; ese registro aparece en el Excel con su fecha.
-
-**Escáner de QR:** con la cámara en vivo (solo desde el enlace https de GitHub Pages), cada código leído muestra un **✓ verde con un tono alegre** si el nombre coincide con la lista, una **✗ roja con un zumbido grave** y el mensaje «no coincide con ningún nombre de la lista del curso» si no coincide, y una **«!» ámbar** si hay algo que revisar (código de otro día, ya registrado o nombre parecido a varios). El resultado aparece encima de la cámara y también grande sobre la imagen. Si abre el registro como archivo guardado o dentro de Claude, el navegador bloquea la cámara: el registro lo explica y ofrece «Tomar foto del QR».
+Una página web publicada en GitHub Pages no puede enviar correos por sí sola sin un servidor; por eso el envío pasa por su programa de correo, en un solo paso.
 
 **El Excel de cada sesión** (`Asistencia_PROF00820_S06_2026-10-22.xlsx`) tiene dos hojas:
-- **Sesión:** los 22 estudiantes en orden de lista, con Presente o Falta, hora y forma de registro (QR o manual), más presentes, faltas y porcentaje calculados con fórmulas de Excel.
+- **Sesión:** los estudiantes en orden de lista (alfabético), con Presente o Falta, hora y forma de registro (QR o manual), más presentes, faltas y porcentaje calculados con fórmulas de Excel.
 - **Semestre:** una columna P/F por cada sesión registrada, con asistencias, sesiones y porcentaje de cada estudiante, y los presentes por sesión.
 
 **Importante sobre los datos**

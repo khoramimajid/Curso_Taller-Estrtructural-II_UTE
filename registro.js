@@ -8,7 +8,7 @@
   var Q = window.QRAsistencia;
   var st = Q.almacen();
   var $ = function (id) { return document.getElementById(id); };
-  var D = null, sel = null, hoy = null, SES = [];
+  var D = null, sel = null, hoy = null;
 
   // ---------- utilidades ----------
   function h(tag, attrs, hijos) {
@@ -48,28 +48,21 @@
 
   // ---------- sonido ----------
   var audio = null;
-  function contextoAudio() {
-    try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); if (audio.state === "suspended") audio.resume(); } catch (e) {}
-    return audio;
-  }
-  // El navegador solo permite sonido después de un toque: se activa con el primer clic en la página
-  document.addEventListener("pointerdown", function desbloquear() { contextoAudio(); document.removeEventListener("pointerdown", desbloquear); });
-  function tono(frecs, dur, forma, vol) {
-    var a = contextoAudio(); if (!a) return;
+  function tono(frecs, dur) {
     try {
-      var t = a.currentTime + 0.02;
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      var t = audio.currentTime;
       frecs.forEach(function (f, i) {
-        var o = a.createOscillator(), g = a.createGain();
-        o.type = forma || "sine"; o.frequency.value = f;
+        var o = audio.createOscillator(), g = audio.createGain();
+        o.frequency.value = f;
         g.gain.setValueAtTime(0.0001, t + i * dur);
-        g.gain.exponentialRampToValueAtTime(vol || 0.3, t + i * dur + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.25, t + i * dur + 0.02);
         g.gain.exponentialRampToValueAtTime(0.0001, t + (i + 1) * dur);
-        o.connect(g); g.connect(a.destination); o.start(t + i * dur); o.stop(t + (i + 1) * dur + 0.03);
+        o.connect(g); g.connect(audio.destination); o.start(t + i * dur); o.stop(t + (i + 1) * dur + 0.02);
       });
     } catch (e) {}
   }
-  // Correcto: dos notas que suben. Repetido o con advertencia: una nota media. No coincide: zumbido grave doble.
-  var SONIDO = { ok: function () { tono([1046.5, 1568], 0.12, "sine", 0.32); }, repetido: function () { tono([740, 740], 0.11, "triangle", 0.25); }, error: function () { tono([200, 150], 0.22, "square", 0.12); } };
+  var SONIDO = { ok: function () { tono([880, 1320], 0.09); }, repetido: function () { tono([660], 0.12); }, error: function () { tono([300, 220], 0.14); } };
 
   // ---------- almacenamiento ----------
   function vacio() { return { version: 2, lista: [], sesiones: {}, correo: null, ultimoCambio: null }; }
@@ -79,8 +72,55 @@
     catch (e) { return vacio(); }
   }
   var A = leer();
-  if (!A.lista.length && Array.isArray(window.LISTA_PREDETERMINADA) && window.LISTA_PREDETERMINADA.length) {
-    A.lista = window.LISTA_PREDETERMINADA.map(function (e) { return { numero: e.numero, nombre: Q.limpiarNombre(String(e.nombre).replace(/\//g, " ")), codigo: null }; });
+
+  // Reemplaza la lista y pasa la asistencia ya registrada al estudiante correcto según su nombre (aunque cambie su número).
+  function palabras(s) { return Q.normal(s).replace(/[^a-z0-9ñ ]/g, " ").split(" ").filter(function (w) { return w.length > 1; }); }
+  function parecido(a, b) { var pb = palabras(b); return palabras(a).filter(function (w) { return pb.indexOf(w) !== -1; }).length; }
+  function buscarPorNombre(lista, nombre, minimo, usados) {
+    var exacto = lista.filter(function (e) { return Q.normal(e.nombre) === Q.normal(nombre); })[0];
+    if (exacto) return exacto;
+    var mejor = null, pm = 0, empate = false;
+    lista.forEach(function (e) {
+      if (usados && usados[e.numero]) return;
+      var p = parecido(nombre, e.nombre);
+      if (p > pm) { mejor = e; pm = p; empate = false; } else if (p === pm && p > 0) empate = true;
+    });
+    return (pm >= minimo && !empate) ? mejor : null;
+  }
+  function aplicarLista(nueva) {
+    var vieja = A.lista || [], mapa = {}, usados = {};
+    vieja.forEach(function (o) {
+      var e = buscarPorNombre(nueva, o.nombre, 2, usados);
+      if (e && !usados[e.numero]) { mapa[o.numero] = e; usados[e.numero] = 1; if (o.codigo && !e.codigo) e.codigo = o.codigo; }
+    });
+    Object.keys(A.sesiones).forEach(function (k) {
+      var s = A.sesiones[k], nuevos = [], tiene = {};
+      s.registros.forEach(function (r) {
+        if (r.numero !== null && r.numero !== undefined) {
+          var e = mapa[r.numero];
+          if (e) { r.numero = e.numero; r.nombre = e.nombre; } else { r.numero = null; }
+        }
+        if (r.numero !== null && r.numero !== undefined) tiene[r.numero] = 1;
+        nuevos.push(r);
+      });
+      // Los QR que quedaron «fuera de la lista» se asignan si ahora coinciden claramente con alguien
+      nuevos.forEach(function (r) {
+        if (r.numero !== null && r.numero !== undefined) return;
+        var e = buscarPorNombre(nueva, r.nombreQR || r.nombre, 3, tiene);
+        if (e && !tiene[e.numero]) { r.numero = e.numero; r.nombre = e.nombre; tiene[e.numero] = 1; if (r.codigo && !e.codigo) e.codigo = r.codigo; }
+      });
+      s.registros = nuevos;
+    });
+    A.lista = nueva;
+  }
+  if (Array.isArray(window.LISTA_PREDETERMINADA) && window.LISTA_PREDETERMINADA.length) {
+    var predet = window.LISTA_PREDETERMINADA.map(function (e) { return { numero: e.numero, nombre: Q.limpiarNombre(String(e.nombre).replace(/\//g, " ")), codigo: null }; });
+    var versionLista = String(window.LISTA_VERSION || "1");
+    if (!A.lista.length) { A.lista = predet; A.listaVersion = versionLista; }
+    else if (A.listaVersion !== versionLista) {
+      aplicarLista(predet); A.listaVersion = versionLista;
+      try { st && st.setItem(CLAVE, JSON.stringify(A)); } catch (e) {}
+    }
   }
   function guardar(cambio) {
     if (cambio) { A.ultimoCambio = new Date().toISOString(); var s = A.sesiones[String(sel.n)]; if (s) s.modificado = A.ultimoCambio; }
@@ -92,12 +132,7 @@
 
   function ses(n) { var k = String(n); if (!A.sesiones[k]) A.sesiones[k] = { fecha: sesionPorN(n).fecha, registros: [] }; return A.sesiones[k]; }
   function regs(n) { var s = A.sesiones[String(n)]; return s ? s.registros : []; }
-  function sesionPorN(n) { for (var i = 0; i < SES.length; i++) if (String(SES[i].n) === String(n)) return SES[i]; return null; }
-  // Nombre visible de la sesión; los registros de días sin clase programada se llaman «Registro del …»
-  function etiqueta(x) { return x.extra ? (x.fecha === hoy ? "Hoy, " : "Registro del ") + fecha(x.fecha, false, true) + " (sin clase programada)" : "Sesión " + x.n + ", " + fecha(x.fecha, false, true); }
-  function etiquetaCorta(x) { return x.extra ? (x.fecha === hoy ? "Hoy, " : "Extra, ") + fecha(x.fecha, true, true) + " (sin clase)" : "Sesión " + x.n + ", " + fecha(x.fecha, true); }
-  function nombreSesion(x) { return x.extra ? fecha(x.fecha, false, true) + " (sin clase programada)" : "sesión " + x.n + " (" + fecha(x.fecha, false, true) + ")"; }
-  function deLaSesion(x) { return (x.extra ? "del " : "de la ") + nombreSesion(x); }
+  function sesionPorN(n) { for (var i = 0; i < D.sesiones.length; i++) if (D.sesiones[i].n === n) return D.sesiones[i]; return null; }
   function regDe(n, e) { var r = regs(n); for (var i = 0; i < r.length; i++) if (r[i].numero === e.numero) return r[i]; return null; }
   function fueraDeLista(n) { return regs(n).filter(function (r) { return r.numero === null || r.numero === undefined; }); }
 
@@ -157,10 +192,8 @@
     var r = leerTextoLista(texto);
     if (r.error) { alert(r.error); return false; }
     var hay = Object.keys(A.sesiones).some(function (k) { return A.sesiones[k].registros.length; });
-    if (A.lista.length && hay && !confirm("Ya hay asistencia registrada con la lista actual. Si los números cambian, las marcas anteriores quedarán asociadas al número antiguo. ¿Reemplazar la lista por la nueva de " + r.lista.length + " estudiantes?")) return false;
-    // conservar los códigos QR ya aprendidos
-    r.lista.forEach(function (e) { var viejo = A.lista.filter(function (x) { return Q.normal(x.nombre) === Q.normal(e.nombre); })[0]; if (viejo && viejo.codigo && !e.codigo) e.codigo = viejo.codigo; });
-    A.lista = r.lista; guardar(false); pintar();
+    if (A.lista.length && hay && !confirm("Ya hay asistencia registrada. Se pasará a cada estudiante según su nombre, aunque cambie su número. ¿Reemplazar la lista por la nueva de " + r.lista.length + " estudiantes?")) return false;
+    aplicarLista(r.lista); guardar(false); pintar();
     return true;
   }
   $("guardar-lista").addEventListener("click", function () { if (guardarLista($("pegar-lista").value)) $("pegar-lista").value = ""; });
@@ -176,16 +209,15 @@
     var r = regs(sel.n);
     var dentro = A.lista.filter(function (e) { return regDe(sel.n, e); }).length;
     var total = A.lista.length;
-    $("reg-fecha").textContent = etiqueta(sel) + (sel.fecha === hoy && !sel.extra ? " (hoy)" : "");
+    $("reg-fecha").textContent = "Sesión " + sel.n + ", " + fecha(sel.fecha, false, true) + (sel.fecha === hoy ? " (hoy)" : "");
     $("cuenta").textContent = String(dentro);
     $("cuenta-de").textContent = total ? " de " + total + " presentes" : " presentes";
     var pct = total ? Math.round(100 * dentro / total) : 0;
     $("barra").setAttribute("aria-valuenow", String(pct)); $("barra").firstElementChild.style.width = pct + "%";
     var s = A.sesiones[String(sel.n)];
     var env = $("estado-envio");
-    var ult = s ? [s.enviado, s.textoEnviado].filter(Boolean).sort().pop() : null;
-    if (ult && (!s.modificado || s.modificado <= ult)) { env.className = "reg__envio reg__envio--ok"; env.textContent = (ult === s.enviado ? "Excel enviado o descargado" : "Lista enviada por correo") + " a las " + hora(ult) + "."; }
-    else if (r.length) { env.className = "reg__envio reg__envio--pendiente"; env.textContent = ult ? "Hubo cambios después del último envío: vuelva a enviar." : "Aún no envió la asistencia de esta sesión."; }
+    if (s && s.enviado && (!s.modificado || s.modificado <= s.enviado)) { env.className = "reg__envio reg__envio--ok"; env.textContent = "Excel enviado o descargado a las " + hora(s.enviado) + "."; }
+    else if (r.length) { env.className = "reg__envio reg__envio--pendiente"; env.textContent = s && s.enviado ? "Hubo cambios después del último envío: vuelva a enviar el Excel." : "Aún no envió el Excel de esta sesión."; }
     else { env.className = "reg__envio"; env.textContent = ""; }
 
     $("sin-lista").hidden = !!total;
@@ -225,8 +257,8 @@
       ]));
     });
     $("elegir").value = String(sel.n);
-    $("anterior").disabled = sel.n === SES[0].n;
-    $("siguiente").disabled = sel.n === SES[SES.length - 1].n;
+    $("anterior").disabled = sel.n === D.sesiones[0].n;
+    $("siguiente").disabled = sel.n === D.sesiones[D.sesiones.length - 1].n;
     $("correo").value = A.correo || D.curso.correo;
   }
 
@@ -261,9 +293,6 @@
   }
   function mostrarUltimo(tipo, titulo, detalle, opciones) {
     $("ultimo").className = "ultimo ultimo--" + tipo;
-    $("ultimo-icono").textContent = tipo === "ok" ? "✓" : tipo === "error" ? "✗" : "!";
-    var vr = $("visor-resultado");
-    if (vr) { vr.className = "visor__resultado visor__resultado--" + tipo; vr.textContent = tipo === "ok" ? "✓" : tipo === "error" ? "✗" : "!"; clearTimeout(vr._t); vr._t = setTimeout(function () { vr.className = "visor__resultado"; vr.textContent = ""; }, 1500); }
     $("ultimo-nombre").textContent = titulo; $("ultimo-detalle").textContent = detalle || "";
     var op = $("ultimo-opciones"); op.innerHTML = "";
     (opciones || []).forEach(function (o) { var b = h("button", { class: "boton boton--secundario boton--mini", type: "button", text: o.texto }); b.addEventListener("click", o.accion); op.appendChild(b); });
@@ -301,20 +330,6 @@
       }
       pintar(); return;
     }
-    // Ningún nombre parecido en la lista: avisar claramente, sin registrar
-    if (!b.candidatos.length) {
-      SONIDO.error();
-      mostrarUltimo("error", "El nombre no coincide", "«" + p.nombre + "» no coincide con ningún nombre de la lista del curso. No se registró." + gen, [
-        { texto: "Registrar igual (fuera de la lista)", accion: function () {
-          if (!fueraDeLista(sel.n).some(function (y) { return y.codigo === p.codigo; })) {
-            ses(sel.n).registros.push({ numero: null, codigo: p.codigo, nombre: p.nombre, nombreQR: p.nombre, hora: new Date().toISOString(), modo: "qr", generado: p.generado || null });
-            guardar(true); pintar();
-          }
-          mostrarUltimo("rep", p.nombre, "Registrado fuera de la lista del curso. Puede asignarlo a un estudiante en «Por resolver».");
-        } }
-      ]);
-      return;
-    }
     // Caso dudoso: se guarda de inmediato como «por resolver» para no perderlo si llega otro estudiante
     var previo = fueraDeLista(sel.n).filter(function (y) { return y.codigo === p.codigo; })[0];
     if (previo) { SONIDO.repetido(); mostrarUltimo("rep", p.nombre, "Ya está en «Por resolver» desde las " + hora(previo.hora) + "."); return; }
@@ -322,7 +337,8 @@
     ses(sel.n).registros.push(x); guardar(true); pintar();
     SONIDO.repetido();
     var ops = b.candidatos.map(function (e) { return { texto: "Es " + e.numero + ". " + e.nombre, accion: function () { asignarQR(x, e); } }; });
-    mostrarUltimo("rep", "El nombre no coincide exactamente", "«" + p.nombre + "» no coincide exactamente con la lista del curso. ¿Es " + (b.candidatos.length === 1 ? "este estudiante" : "alguno de estos") + "? Elija ahora o más tarde en «Por resolver»." + gen, ops);
+    mostrarUltimo("rep", "¿Quién es " + p.nombre + "?",
+      (b.candidatos.length ? "Hay " + b.candidatos.length + " posibles en la lista. Elija el correcto, ahora o más tarde en «Por resolver»." : "No encontré ese nombre en la lista. Quedó en «Por resolver»: asígnelo abajo o déjelo fuera de la lista.") + gen, ops);
   }
   function bucle() {
     if (!cam.activo) return;
@@ -339,14 +355,10 @@
     }
     requestAnimationFrame(bucle);
   }
-  function sinCamara(motivo) {
-    $("cam-estado").textContent = "La cámara en vivo no está disponible aquí";
-    mostrarUltimo("rep", "Cámara no disponible aquí", motivo + " Para escanear en vivo, abra el registro desde su enlace de GitHub Pages (la dirección que empieza con https:// y termina en /registro.html). Mientras tanto, use «Tomar foto del QR».");
-  }
   function encender() {
     var estado = $("cam-estado");
-    if (/^(file|content):/.test(location.protocol)) { sinCamara("Abrió el registro como archivo guardado, y el navegador no permite usar la cámara en archivos."); return; }
-    if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { sinCamara("Este navegador no permite usar la cámara en esta página."); return; }
+    if (!window.isSecureContext) { estado.textContent = "La cámara en vivo no está disponible aquí. Use «Tomar foto del QR»."; return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { estado.textContent = "La cámara en vivo no está disponible aquí. Use «Tomar foto del QR»."; return; }
     estado.textContent = "Encendiendo la cámara…";
     var tactil = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
     var v = { width: { ideal: 1280 }, height: { ideal: 720 } };
@@ -364,8 +376,7 @@
       }).catch(function () {});
       requestAnimationFrame(bucle);
     }).catch(function (e) {
-      if (e && e.name === "NotAllowedError") { sinCamara("El permiso de cámara fue denegado o esta vista no lo permite. Si está en GitHub Pages, pulse el ícono de la cámara junto a la dirección y elija «Permitir»."); return; }
-      estado.textContent = e && e.name === "NotAllowedError" ? ""
+      estado.textContent = e && e.name === "NotAllowedError" ? "La cámara en vivo no está permitida aquí. Use «Tomar foto del QR» (abajo) o abra el registro desde GitHub Pages."
         : e && e.name === "NotFoundError" ? "No se encontró ninguna cámara." : "No se pudo encender la cámara (" + (e && e.name || "error") + ").";
     });
   }
@@ -375,7 +386,6 @@
     cam.stream = null; $("video").srcObject = null; $("cam-estado").textContent = "Cámara apagada";
   }
   $("escanear").addEventListener("click", function () {
-    contextoAudio();
     var abrir = $("panel-escaner").hidden;
     $("panel-escaner").hidden = !abrir;
     document.body.classList.toggle("con-escaner", abrir);
@@ -384,7 +394,6 @@
     if (abrir) encender(); else apagar();
   });
   $("cam-lista").addEventListener("change", function () { cam.deviceId = $("cam-lista").value; apagar(); encender(); });
-  $("foto-qr").addEventListener("click", function () { contextoAudio(); });
   $("foto-qr").addEventListener("change", function (ev) {
     var f = ev.target.files && ev.target.files[0]; if (!f) return;
     var img = new Image(), url = URL.createObjectURL(f);
@@ -404,101 +413,51 @@
 
   // ---------- Excel y correo ----------
   function libroSesion() {
-    var conDatos = SES.filter(function (s) { return regs(s.n).length || s.n === sel.n; });
+    var conDatos = D.sesiones.filter(function (s) { return regs(s.n).length || s.n === sel.n; });
     return window.AsistenciaExcel.construir({
       curso: D.curso.nombre, codigoCurso: D.curso.codigo, docente: D.curso.docente, generado: ahoraTexto(),
-      sesion: { n: sel.n, fecha: sel.fecha, fechaLarga: fecha(sel.fecha, false, true), tema: sel.tema, titulo: sel.extra ? "Registro sin clase programada" : null, hoja: sel.extra ? "Registro " + sel.fecha.slice(8) + "-" + sel.fecha.slice(5, 7) : null },
-      sesiones: conDatos.map(function (s) { return { n: s.n, fecha: s.fecha, corta: s.extra ? "Extra" : null }; }),
+      sesion: { n: sel.n, fecha: sel.fecha, fechaLarga: fecha(sel.fecha, false, true), tema: sel.tema },
+      sesiones: conDatos.map(function (s) { return { n: s.n, fecha: s.fecha }; }),
       lista: A.lista,
       estado: function (n, e) { var r = null, rr = regs(n); for (var i = 0; i < rr.length; i++) if (rr[i].numero === e.numero) r = rr[i]; return r ? { presente: true, hora: hora(r.hora), modo: r.modo === "qr" ? "QR" : "Manual" } : null; },
       fuera: function (n) { return fueraDeLista(n).map(function (x) { return { nombre: x.nombre, codigo: /^NOM-/.test(x.codigo || "") ? "QR con nombre" : x.codigo, hora: hora(x.hora), modo: "QR" }; }); }
     });
   }
-  function nombreArchivo() { return sel.extra ? "Asistencia_PROF00820_" + sel.fecha + "_sin_clase_programada.xlsx" : "Asistencia_PROF00820_S" + pad2(sel.n) + "_" + sel.fecha + ".xlsx"; }
+  function nombreArchivo() { return "Asistencia_PROF00820_S" + pad2(sel.n) + "_" + sel.fecha + ".xlsx"; }
   function descargarBlob(blob, nombre) { return window.guardarArchivo(nombre, blob); }
   function marcarEnviado() { var s = ses(sel.n); s.enviado = new Date().toISOString(); guardar(false); pintar(); }
   function resumenTexto() {
     var dentro = A.lista.filter(function (e) { return regDe(sel.n, e); }).length;
-    return "Asistencia " + deLaSesion(sel) + ": " + dentro + " de " + A.lista.length + " presentes.";
+    return "Asistencia de la sesión " + sel.n + " (" + fecha(sel.fecha, false, true) + "): " + dentro + " de " + A.lista.length + " presentes.";
   }
   $("correo").addEventListener("change", function () { var v = $("correo").value.trim(); A.correo = v && v !== D.curso.correo ? v : null; guardar(false); });
   $("descargar").addEventListener("click", function () {
     if (!A.lista.length) { alert("Primero cargue la lista del curso."); return; }
     descargarBlob(libroSesion().blob(), nombreArchivo()).then(function (ok) { if (ok) marcarEnviado(); });
   });
-  function cuerpoCorreo(conArchivo) {
-    var pres = [], falt = [];
-    A.lista.forEach(function (e) {
-      var r = regDe(sel.n, e), pn = partesNombre(e.nombre), t = e.numero + ". " + pn.apellidos + " " + pn.nombres;
-      if (r) pres.push(t + " (" + hora(r.hora) + (r.modo === "qr" ? ", QR" : "") + ")"); else falt.push(t);
-    });
-    var fu = fueraDeLista(sel.n).map(function (x) { return "- " + x.nombre + " (" + hora(x.hora) + ")"; });
-    return [D.curso.nombre + " (" + D.curso.codigo + ")", resumenTexto(), "", "PRESENTES (" + pres.length + "):"].concat(pres.length ? pres : ["(ninguno)"], ["", "FALTAS (" + falt.length + "):"], falt.length ? falt : ["(ninguna)"],
-      fu.length ? ["", "NO ESTÁN EN LA LISTA DEL CURSO (" + fu.length + "):"].concat(fu) : [],
-      conArchivo ? ["", "Archivo Excel: " + conArchivo] : [], ["", "Enviado desde el registro de asistencia del curso."]).join("\n");
-  }
-  function puedeCompartir(archivo) {
-    try { return !!(archivo && navigator.share && navigator.canShare && navigator.canShare({ files: [archivo] })); } catch (e) { return false; }
-  }
-  function esCelular() { return !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches); }
-  function abrir(url) { var w = null; try { w = window.open(url, "_blank"); } catch (e) {} if (!w && /^mailto:/.test(url)) { try { location.href = url; } catch (e) {} } }
-  // Panel de ayuda después de enviar: título, párrafos y botones
-  function mostrarPanel(titulo, parrafos, botones) {
-    $("panel-titulo").textContent = titulo;
-    var c = $("panel-cuerpo"); c.innerHTML = "";
-    parrafos.forEach(function (p) { c.appendChild(typeof p === "string" ? h("p", { text: p }) : p); });
-    var b = $("panel-botones"); b.innerHTML = "";
-    botones.forEach(function (x) {
-      var el = x.href ? h("a", { class: "boton " + (x.clase || "boton--secundario"), href: x.href, target: "_blank", rel: "noopener" }, [x.texto])
-                      : h("button", { class: "boton " + (x.clase || "boton--secundario"), type: "button" }, [x.texto]);
-      if (x.accion) el.addEventListener("click", x.accion);
-      b.appendChild(el);
-    });
-    $("panel-envio").hidden = false; $("panel-envio").focus(); $("panel-envio").scrollIntoView({ block: "start" });
-  }
-  $("panel-cerrar").addEventListener("click", function () { $("panel-envio").hidden = true; $("enviar-texto").focus(); });
-
-  // Botón 1: la lista como texto, a su correo
-  $("enviar-texto").addEventListener("click", function () {
+  $("enviar").addEventListener("click", function () {
     if (!A.lista.length) { alert("Primero cargue la lista del curso."); return; }
-    var correo = A.correo || D.curso.correo, asunto = "Asistencia " + D.curso.codigo + ": " + nombreSesion(sel), cuerpo = cuerpoCorreo(null);
-    var outlook = "https://outlook.office.com/mail/deeplink/compose?to=" + encodeURIComponent(correo) + "&subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo);
-    var mailto = "mailto:" + correo.replace(/[^A-Za-z0-9@._+-]/g, "") + "?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo);
-    abrir(esCelular() ? mailto : outlook);
-    var x = ses(sel.n); x.textoEnviado = new Date().toISOString(); guardar(false); pintar();
-    mostrarPanel("Correo con la lista listo", [
-      "Se abrió su correo con el asunto y la lista de presentes y faltas escrita en el mensaje. Revise y pulse Enviar.",
-      "Si no se abrió, use uno de estos botones:"
-    ], [{ texto: "Abrir en Outlook (correo UTE)", href: outlook, clase: "boton--primario" }, { texto: "Otra app de correo", href: mailto }]);
-  });
-
-  // Botón 2: el archivo Excel, por WhatsApp
-  $("enviar-whatsapp").addEventListener("click", function () {
-    if (!A.lista.length) { alert("Primero cargue la lista del curso."); return; }
-    var nombre = nombreArchivo(), blob = libroSesion().blob(), archivo = null;
+    var nombre = nombreArchivo(), blob = libroSesion().blob();
+    var correo = A.correo || D.curso.correo;
+    var asunto = "Asistencia PROF00820, sesión " + sel.n + " (" + sel.fecha + ")";
+    var archivo = null;
     try { archivo = new File([blob], nombre, { type: blob.type }); } catch (e) {}
-    var texto = resumenTexto();
-    var wa = "https://wa.me/" + String(D.curso.telefono_internacional || "").replace(/\D/g, "") + "?text=" + encodeURIComponent(texto + " Adjunto el Excel: " + nombre);
-    if (puedeCompartir(archivo)) {
-      navigator.share({ files: [archivo], title: nombre, text: texto }).then(marcarEnviado).catch(function (e) {
-        if (e && e.name === "AbortError") return;
-        planB();
-      });
+    if (archivo && navigator.canShare && navigator.canShare({ files: [archivo] })) {
+      navigator.share({ files: [archivo], title: asunto, text: resumenTexto() + " Enviar a: " + correo })
+        .then(marcarEnviado)
+        .catch(function (e) { if (e && e.name !== "AbortError") { respaldoCorreo(blob, nombre, correo, asunto); } });
       return;
     }
-    planB();
-    function planB() {
-      descargarBlob(blob, nombre).then(function (ok) {
-        if (!ok) return;
-        marcarEnviado();
-        mostrarPanel("Excel descargado: envíelo por WhatsApp", [
-          h("p", null, [h("strong", { text: "Archivo: " }), nombre + " (en su carpeta Descargas)."]),
-          "Este navegador no permite adjuntar el archivo directamente a WhatsApp desde aquí. Pulse «Abrir WhatsApp», entre a su chat y adjunte el Excel con el clip.",
-          "En el celular, abriendo el registro desde su enlace de GitHub Pages, este botón abre el menú Compartir y el Excel va adjunto directamente."
-        ], [{ texto: "Abrir WhatsApp", href: wa, clase: "boton--verde" }, { texto: "Descargar otra vez", accion: function () { descargarBlob(blob, nombre); } }]);
-      });
-    }
+    respaldoCorreo(blob, nombre, correo, asunto);
   });
+  function respaldoCorreo(blob, nombre, correo, asunto) {
+    descargarBlob(blob, nombre).then(function (ok) {
+    if (!ok) return;
+    marcarEnviado();
+    var cuerpo = resumenTexto() + "\n\nAdjunte el archivo que se acaba de descargar: " + nombre + "\n(Está en su carpeta de Descargas.)";
+    setTimeout(function () { (window.__abrirCorreo || function (u) { location.href = u; })("mailto:" + correo.replace(/[^A-Za-z0-9@._+-]/g, "") + "?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo)); }, 400);
+    });
+  }
   $("exp-semestre").addEventListener("click", function () {
     if (!A.lista.length) { alert("Primero cargue la lista del curso."); return; }
     descargarBlob(libroSesion().blob(), "Asistencia_PROF00820_semestre_" + hoy + ".xlsx");
@@ -516,9 +475,15 @@
       if (!b || !b.sesiones) { alert("El archivo no es un respaldo de asistencia de este sitio."); return; }
       var nuevos = 0;
       if ((!A.lista.length) && b.lista && b.lista.length) A.lista = b.lista;
+      // Si el respaldo se hizo con otra numeración, cada registro pasa al estudiante de la lista actual según su nombre
+      var mapaB = {};
+      if (b.lista && b.lista !== A.lista) b.lista.forEach(function (o) { var e = buscarPorNombre(A.lista, o.nombre, 2); if (e) mapaB[o.numero] = e; });
       Object.keys(b.sesiones).forEach(function (k) {
         if (!A.sesiones[k]) A.sesiones[k] = { fecha: b.sesiones[k].fecha, registros: [] };
         (b.sesiones[k].registros || []).forEach(function (x) {
+          if (b.lista && b.lista !== A.lista && x.numero !== null && x.numero !== undefined) {
+            var e = mapaB[x.numero]; x.numero = e ? e.numero : null; if (e) x.nombre = e.nombre;
+          }
           var ya = A.sesiones[k].registros.some(function (y) { return (x.numero !== null && x.numero !== undefined && y.numero === x.numero) || (x.numero == null && y.numero == null && y.codigo === x.codigo); });
           if (!ya) { A.sesiones[k].registros.push(x); nuevos++; }
         });
@@ -531,30 +496,16 @@
   $("borrar-sesion").addEventListener("click", function () {
     var n = regs(sel.n).length;
     if (!n) { alert("Esta sesión no tiene registros."); return; }
-    if (!confirm("¿Borrar los " + n + " registros " + deLaSesion(sel) + "? No se puede deshacer (salvo que tenga un respaldo).")) return;
+    if (!confirm("¿Borrar los " + n + " registros de la sesión " + sel.n + "? No se puede deshacer (salvo que tenga un respaldo).")) return;
     delete A.sesiones[String(sel.n)]; guardar(true); pintar();
   });
 
-  // ---------- sesión pedida por el modo clase en el archivo único (sin tocar la dirección) ----------
-  window.addEventListener("te2-ir-sesion", function (ev) { var n = ev.detail; if (D && sesionPorN(n)) { sel = sesionPorN(n); pintar(); } });
-
-  // ---------- sesión pedida en la dirección (sin recargar) ----------
-  window.addEventListener("hashchange", function () {
-    var m = location.hash.match(/[&?]sesion=(\d+)/);
-    if (m && D && sesionPorN(+m[1])) { sel = sesionPorN(+m[1]); pintar(); }
-  });
-
   // ---------- navegación ----------
-  function mover(d) { var i = SES.indexOf(sel) + d; if (i >= 0 && i < SES.length) { sel = SES[i]; pintar(); } }
+  function mover(d) { var i = D.sesiones.indexOf(sel) + d; if (i >= 0 && i < D.sesiones.length) { sel = D.sesiones[i]; pintar(); } }
   $("anterior").addEventListener("click", function () { mover(-1); });
   $("siguiente").addEventListener("click", function () { mover(1); });
-  $("elegir").addEventListener("change", function () { sel = sesionPorN($("elegir").value); pintar(); });
-  function reloj() {
-    $("reloj").textContent = hora(new Date().toISOString());
-    if (D && hoy && hoyISO() !== hoy && !new URLSearchParams(location.search).get("hoy")) {
-      hoy = hoyISO(); construirSesiones(); sel = SES.filter(function (x) { return x.fecha === hoy; })[0] || sel; pintar();
-    }
-  }
+  $("elegir").addEventListener("change", function () { sel = sesionPorN(+$("elegir").value); pintar(); });
+  function reloj() { $("reloj").textContent = hora(new Date().toISOString()); }
   reloj(); setInterval(reloj, 10000);
 
   // ---------- inicio ----------
@@ -562,24 +513,11 @@
     if (window.SILABO_EMBEBIDO) return Promise.resolve(window.SILABO_EMBEBIDO);
     return fetch("silabo.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
   }
-  function construirSesiones() {
-    SES = D.sesiones.slice();
-    var extra = {};
-    Object.keys(A.sesiones).forEach(function (k) { if (/^hoy-\d{4}-\d{2}-\d{2}$/.test(k)) extra[k] = k.slice(4); });
-    if (!D.sesiones.some(function (x) { return x.fecha === hoy; })) extra["hoy-" + hoy] = hoy;
-    Object.keys(extra).forEach(function (k) {
-      SES.push({ n: k, fecha: extra[k], extra: true, tema: "Registro de asistencia en un día sin clase programada en el cronograma.", acd: null, ape: null, aa: [] });
-    });
-    SES.sort(function (a, b) { return a.fecha < b.fecha ? -1 : a.fecha > b.fecha ? 1 : 0; });
-    var el = $("elegir"), val = sel ? String(sel.n) : null; el.innerHTML = "";
-    SES.forEach(function (x) { el.appendChild(h("option", { value: String(x.n), text: etiquetaCorta(x) })); });
-    if (val) el.value = val;
-  }
   cargar().then(function (d) {
     D = d; hoy = hoyISO();
-    construirSesiones();
-    var pedida = new URLSearchParams(location.search).get("sesion");
-    sel = (pedida && sesionPorN(pedida)) || SES.filter(function (x) { return x.fecha === hoy; })[0] || SES[SES.length - 1];
+    D.sesiones.forEach(function (x) { $("elegir").appendChild(h("option", { value: String(x.n), text: "Sesión " + x.n + ", " + fecha(x.fecha, true) })); });
+    var pedida = parseInt(new URLSearchParams(location.search).get("sesion"), 10);
+    sel = (pedida && sesionPorN(pedida)) || D.sesiones.filter(function (x) { return x.fecha === hoy; })[0] || D.sesiones.filter(function (x) { return x.fecha > hoy; })[0] || D.sesiones[D.sesiones.length - 1];
     if (!st) { $("error-datos").hidden = false; $("error-datos").textContent = "Este navegador no permite guardar datos: la asistencia se perderá al cerrar la página. Descargue el Excel antes de salir."; }
     pintar();
   }).catch(function () {

@@ -2,22 +2,11 @@
 <html lang="es-EC">
 <head>
   <meta charset="utf-8">
-<script>
-/* Si algún archivo no carga (versión vieja guardada o archivo faltante), avisar en vez de quedarse en blanco */
-window.addEventListener("error", function (e) {
-  if (document.getElementById("aviso-carga")) return;
-  var d = document.createElement("div"); d.id = "aviso-carga"; d.setAttribute("role", "alert");
-  d.style.cssText = "position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#b3261e;color:#fff;padding:12px 14px;border-radius:12px;font:600 15px/1.4 Arial,sans-serif";
-  d.textContent = "La página no cargó completa. Recárguela; si sigue igual, vuelva a subir a GitHub todos los archivos del sitio a la vez (" + ((e.target && (e.target.src || e.target.href)) || e.message || "error") + ").";
-  (document.body || document.documentElement).appendChild(d);
-}, true);
-</script>
-
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Registro de asistencia: Taller estructural II (UTE)</title>
   <meta name="robots" content="noindex">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='4' fill='none' stroke='%232D6A3E' stroke-width='3'/%3E%3Cpath d='M10 16l4 4 8-9' stroke='%232D6A3E' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="estilo.css?v=5.3">
+  <link rel="stylesheet" href="estilo.css">
 </head>
 <body class="pagina-clase pagina-registro">
   <a class="saltar" href="#lista">Saltar a la lista</a>
@@ -50,19 +39,11 @@ window.addEventListener("error", function (e) {
         <p class="reg__envio" id="estado-envio" aria-live="polite"></p>
       </div>
       <div class="reg__acciones">
-        <button class="boton boton--primario boton--grande" type="button" id="enviar-texto">Enviar la lista a mi correo (texto)</button>
-        <button class="boton boton--verde boton--grande boton-whatsapp" type="button" id="enviar-whatsapp"><img src="whatsapp.png" alt="" width="28" height="28"> Enviar Excel por WhatsApp</button>
+        <button class="boton boton--primario boton--grande" type="button" id="enviar">Enviar Excel a mi correo</button>
         <button class="boton boton--secundario" type="button" id="escanear" aria-expanded="false" aria-controls="panel-escaner">Escanear QR</button>
         <button class="boton boton--secundario" type="button" id="todos">Marcar todos presentes</button>
         <button class="boton boton--texto" type="button" id="descargar">Solo descargar el Excel</button>
       </div>
-    </section>
-
-    <section class="panel-correo" id="panel-envio" hidden aria-labelledby="panel-titulo" tabindex="-1">
-      <h2 id="panel-titulo"></h2>
-      <div id="panel-cuerpo"></div>
-      <div class="reg__fila-botones" id="panel-botones"></div>
-      <button class="boton boton--texto" type="button" id="panel-cerrar">Cerrar</button>
     </section>
 
     <section class="aviso aviso--importante" id="sin-lista" hidden aria-labelledby="sin-lista-titulo">
@@ -79,17 +60,9 @@ window.addEventListener("error", function (e) {
     </section>
 
     <section class="escaner-lateral" id="panel-escaner" hidden aria-label="Escáner de códigos QR">
-      <div class="ultimo" id="ultimo" aria-live="assertive" aria-atomic="true">
-        <p class="ultimo__icono" id="ultimo-icono" aria-hidden="true"></p>
-        <p class="ultimo__etiqueta">Último escaneo</p>
-        <p class="ultimo__nombre" id="ultimo-nombre">Esperando el primer código…</p>
-        <p class="ultimo__detalle" id="ultimo-detalle"></p>
-        <div class="ultimo__opciones" id="ultimo-opciones"></div>
-      </div>
       <div class="escaner__visor" id="visor">
         <video id="video" playsinline muted></video>
         <div class="escaner__marco" aria-hidden="true"></div>
-        <div class="visor__resultado" id="visor-resultado" aria-hidden="true"></div>
         <p class="escaner__estado" id="cam-estado">Cámara apagada</p>
       </div>
       <div class="escaner__controles">
@@ -99,7 +72,13 @@ window.addEventListener("error", function (e) {
           <input type="file" id="foto-qr" accept="image/*" capture="environment" class="solo-lector">
         </label>
       </div>
-      <p class="nota" id="foto-qr-ayuda">La cámara en vivo lee los códigos sola. Solo funciona abriendo el registro desde su enlace de GitHub Pages (la dirección que empieza con https:// y termina en /registro.html). Si la abre como archivo guardado o dentro de Claude, el navegador bloquea la cámara: use «Tomar foto del QR».</p>
+      <p class="nota" id="foto-qr-ayuda">Si la cámara en vivo no se enciende (por ejemplo, dentro del visor de Claude), use «Tomar foto del QR»: en el celular se abre la cámara; en la laptop puede elegir una foto o captura del código.</p>
+      <div class="ultimo" id="ultimo" aria-live="assertive" aria-atomic="true">
+        <p class="ultimo__etiqueta">Último escaneo</p>
+        <p class="ultimo__nombre" id="ultimo-nombre">Esperando el primer código…</p>
+        <p class="ultimo__detalle" id="ultimo-detalle"></p>
+        <div class="ultimo__opciones" id="ultimo-opciones"></div>
+      </div>
     </section>
 
     <section class="reg__lista" aria-labelledby="lista-titulo">
@@ -133,11 +112,12 @@ window.addEventListener("error", function (e) {
     </details>
   </main>
 
-  <script src="jsQR-1.4.0.js?v=5.3"></script>
-  <script src="guardar.js?v=5.3"></script>
-  <script src="qr-comun.js?v=5.3"></script>
-  <script src="xlsx-mini.js?v=5.3"></script>
-  <script src="asistencia-excel.js?v=5.3"></script>
-  <script src="registro.js?v=5.3"></script>
+  <script src="jsQR-1.4.0.js"></script>
+  <script src="guardar.js"></script>
+  <script src="qr-comun.js"></script>
+  <script src="xlsx-mini.js"></script>
+  <script src="asistencia-excel.js"></script>
+  <script src="lista-curso.js"></script>
+  <script src="registro.js"></script>
 </body>
 </html>
